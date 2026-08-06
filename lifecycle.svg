@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="230" viewBox="0 0 1600 230" role="img" aria-labelledby="title desc">
+  <title id="title">OpenMetaHarness lifecycle phases</title>
+  <desc id="desc">Six phases arranged from left to right: Define and preflight; Bootstrap and validate; Orient and plan each run; Execute, challenge, and judge; Synthesize, learn, and checkpoint; Continue, recover, or close.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+      <path d="M0 0L9 4.5L0 9Z" fill="#6b5a50"/>
+    </marker>
+    <style>
+      text { font-family: Helvetica, Arial, sans-serif; }
+      .phase { font-family: "Courier New", Courier, monospace; font-size: 13px; font-weight: 600; letter-spacing: 1.2px; fill: #e67704; }
+      .name { font-family: Helvetica, Arial, sans-serif; font-size: 19px; font-weight: 700; fill: #0a0908; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="230" fill="#ffffff"/>
+
+  <g>
+    <rect x="45" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+    <rect x="45" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
+    <text x="155" y="82" text-anchor="middle" class="phase">PHASE 1</text>
+    <text x="155" y="118" text-anchor="middle" class="name">Define and</text>
+    <text x="155" y="144" text-anchor="middle" class="name">preflight</text>
+  </g>
+
+  <line x1="275" y1="115" x2="295" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="305" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+    <rect x="305" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
+    <text x="415" y="82" text-anchor="middle" class="phase">PHASE 2</text>
+    <text x="415" y="118" text-anchor="middle" class="name">Bootstrap and</text>
+    <text x="415" y="144" text-anchor="middle" class="name">validate</text>
+  </g>
+
+  <line x1="535" y1="115" x2="555" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="565" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+    <rect x="565" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
+    <text x="675" y="82" text-anchor="middle" class="phase">PHASE 3</text>
+    <text x="675" y="118" text-anchor="middle" class="name">Orient and plan</text>
+    <text x="675" y="144" text-anchor="middle" class="name">each run</text>
+  </g>
+
+  <line x1="795" y1="115" x2="815" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="825" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+    <rect x="825" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
+    <text x="935" y="82" text-anchor="middle" class="phase">PHASE 4</text>
+    <text x="935" y="118" text-anchor="middle" class="name">Execute,</text>
+    <text x="935" y="144" text-anchor="middle" class="name">challenge, and</text>
+    <text x="935" y="170" text-anchor="middle" class="name">judge</text>
+  </g>
+
+  <line x1="1055" y1="115" x2="1075" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="1085" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+    <rect x="1085" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
+    <text x="1195" y="82" text-anchor="middle" class="phase">PHASE 5</text>
+    <text x="1195" y="118" text-anchor="middle" class="name">Synthesize,</text>
+    <text x="1195" y="144" text-anchor="middle" class="name">learn, and</text>
+    <text x="1195" y="170" text-anchor="middle" class="name">checkpoint</text>
+  </g>
+
+  <line x1="1315" y1="115" x2="1335" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="1345" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+    <rect x="1345" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
+    <text x="1455" y="82" text-anchor="middle" class="phase">PHASE 6</text>
+    <text x="1455" y="118" text-anchor="middle" class="name">Continue,</text>
+    <text x="1455" y="144" text-anchor="middle" class="name">recover, or</text>
+    <text x="1455" y="170" text-anchor="middle" class="name">close</text>
+  </g>
+</svg>

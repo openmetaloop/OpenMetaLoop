@@ -75,6 +75,14 @@ The bootloader also enforces:
 
 ## Core Features
 
+<p align="center">
+  <img
+    src="lifecycle.svg"
+    alt="The six OpenMetaHarness lifecycle phases arranged from left to right."
+    width="100%"
+  >
+</p>
+
 The bootloader has six sequential phases. The lifecycle tables describe what happens
 and in what order. The module map that follows describes the persistent control system
 that operates across those phases.
