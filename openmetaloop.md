@@ -1,4 +1,4 @@
-# OpenMetaHarness Bootloader
+# OpenMetaLoop Bootloader
 
 *The one-file bootloader for persistent, self-adaptive project agents.*
 
@@ -286,7 +286,7 @@ From this point forward,
 ## Normative kernel
 
 ```yaml
-protocol: OpenMetaHarness
+protocol: OpenMetaLoop
 protocol_version: 1.0.0
 modes:
   - setup
@@ -476,7 +476,7 @@ The original behavior remains a first-class profile inside the generalized harne
 
 ### Owner intent and scientific scope
 
-OpenMetaHarness is intentionally a **repository-native agent control plane for
+OpenMetaLoop is intentionally a **repository-native agent control plane for
 persistent, self-adaptive project agents**. The agents meta-learn from verified
 outcomes at inference time by adapting an external operating policy stored in the
 workspace. The runtime contains a reinforcement-inspired meta-agent loop; this
@@ -505,7 +505,7 @@ This is a systems architecture with research inspirations, not a claim of identi
 any one research algorithm:
 
 - **Adaptive-memory inspiration:** separate memory timescales, prediction-violating
-  information, persistence, decay, and forgetting. OpenMetaHarness uses an external
+  information, persistence, decay, and forgetting. OpenMetaLoop uses an external
   symbolic memory system whose ordinal scores are assigned by an agent and whose
   cleaning and decay arithmetic is deterministic; it does not implement
   gradient-updated neural memory.
@@ -1821,7 +1821,7 @@ advisory evidence and never grant authority.
 ```markdown
 ---
 module: harness-manifest
-protocol: OpenMetaHarness
+protocol: OpenMetaLoop
 protocol_version: 1.0.0
 installed_at:
 last_migrated_at:
@@ -1938,7 +1938,7 @@ purpose: Canonical current-system map for the harness and the project it operate
 ## Technical identity
 
 This workspace is operated by a **repository-native agent control plane** installed by
-OpenMetaHarness. Its project agents are persistent and self-adaptive: they meta-learn
+OpenMetaLoop. Its project agents are persistent and self-adaptive: they meta-learn
 from verified outcomes at inference time, while their durable memory, state, and
 external operating policy live in this repository.
 
@@ -3086,12 +3086,12 @@ ARCHIVE = LOGS_DIR / "archive.md"
 TRUST_EVENT_ARCHIVE = LOGS_DIR / "trust_events_archive.md"
 TRUST_LEDGER = MEMORY_DIR / "trust_ledger.md"
 
-# Optionally shared across explicitly opted-in OpenMetaHarness workspaces. Imported
+# Optionally shared across explicitly opted-in OpenMetaLoop workspaces. Imported
 # lessons remain untrusted advisory evidence. See orchestration/loop.md's
 # "Cross-project memory."
 GLOBAL_DIR = Path(
     os.environ.get(
-        "OPENMETAHARNESS_GLOBAL_DIR",
+        "OPENMETALOOP_GLOBAL_DIR",
         str(Path.home() / ".agent-bootloader"),
     )
 ).expanduser()
@@ -3099,7 +3099,7 @@ GLOBAL_META_LEARNING = GLOBAL_DIR / "global_meta_learning.md"
 GLOBAL_HEADER = (
     "# Global Meta-Learning\n\n"
     "Portable process lessons promoted from individual projects operated with "
-    "OpenMetaHarness — tooling gotchas, environment quirks, and process rules "
+    "OpenMetaLoop — tooling gotchas, environment quirks, and process rules "
     "general enough to apply beyond the one project that discovered them. Seeded into "
     "each opted-in workspace's memory/meta_learning.md (`seed-from-global`), "
     "and added to via `promote-to-global <entry-id>` whenever a local lesson is judged "
@@ -3407,7 +3407,7 @@ def validate_installation() -> list[str]:
         for relative in required_files
         if (ROOT / relative).is_file()
     ]
-    distribution = ROOT / "openmetaharness.md"
+    distribution = ROOT / "openmetaloop.md"
     template_sources = set()
     if distribution.is_file():
         scan_paths.append(distribution)
@@ -4606,14 +4606,14 @@ def main() -> None:
         print(next_run_id())
     elif args.command == "self-test":
         self_test()
-        print("OpenMetaHarness helper self-test valid")
+        print("OpenMetaLoop helper self-test valid")
     elif args.command == "validate":
         errors = validate_installation()
         if errors:
             for error in errors:
                 print(f"ERROR: {error}")
             raise SystemExit(1)
-        print("OpenMetaHarness installation valid")
+        print("OpenMetaLoop installation valid")
     elif args.command == "write-log":
         content = Path(args.content_file).read_text()
         path = write_run_log(args.run_id, content)

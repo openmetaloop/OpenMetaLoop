@@ -1,9 +1,9 @@
-# 🐶 OpenMetaHarness: A one-file bootloader for your next coding-agent project
+# 🐶 OpenMetaLoop: A one-file bootloader for your next coding-agent project
 
 <p align="center">
   <img
     src="banner.png"
-    alt="OpenMetaHarness: A one-file bootloader for your next coding-agent project."
+    alt="OpenMetaLoop: A one-file bootloader for your next coding-agent project."
     width="100%"
   >
 </p>
@@ -11,7 +11,7 @@
 Coding agents have become highly capable, but they can be unreliable on long-horizon,
 evolving projects that unfold across many context windows.
 
-OpenMetaHarness is a cognitive architecture that enables coding agents to develop and
+OpenMetaLoop is a cognitive architecture that enables coding agents to develop and
 execute on a long-horizon project vision from 0 to 1 with minimal human
 intervention and maximum token efficiency across multiple sessions and context
 windows.
@@ -24,11 +24,11 @@ stretches.
 
 ## Start
 
-Create a new directory, put [`openmetaharness.md`](openmetaharness.md) inside it, and
+Create a new directory, put [`openmetaloop.md`](openmetaloop.md) inside it, and
 open your coding agent in that directory. Then type:
 
 ```text
-Read openmetaharness.md and use it to set up my new project.
+Read openmetaloop.md and use it to set up my new project.
 
 Name:  <your project name>
 About: <one sentence on what the project is>
@@ -39,7 +39,7 @@ build.
 
 ## Safety
 
-OpenMetaHarness is distributed as a plain-text Markdown file so its instructions can be
+OpenMetaLoop is distributed as a plain-text Markdown file so its instructions can be
 read directly, searched, diffed, and reviewed without executing macros or unpacking an
 opaque binary format. Markdown alone cannot prevent invisible Unicode characters, so
 the validator also rejects zero-width characters, bidirectional text controls,
@@ -78,7 +78,7 @@ The bootloader also enforces:
 <p align="center">
   <img
     src="lifecycle.svg"
-    alt="The six OpenMetaHarness lifecycle phases arranged from left to right."
+    alt="The six OpenMetaLoop lifecycle phases arranged from left to right."
     width="100%"
   >
 </p>
@@ -176,7 +176,7 @@ avoid known issues in long-horizon task execution. I thought it would be great i
 had one simple file that a coding agent could read when I start a new project to
 address these known issues while improving efficiency and autonomy long-term.
 
-OpenMetaHarness has unlocked a better way for me to use AI. It allows me and my
+OpenMetaLoop has unlocked a better way for me to use AI. It allows me and my
 collaborators to run a persistent engineering operation designed to be model and
 system-agnostic, whose memory, judgment, and operating discipline compound over
 time.
@@ -185,7 +185,7 @@ In some of my tests, as the project matured, the loop ran for an hour before nee
 human input. When my collaborator started a new session on a new device with a new
 coding agent all they had to prompt it with was continue where you left off.
 
-I call this OpenMetaHarness, a one-file bootloader and a README released under the
+I call this OpenMetaLoop, a one-file bootloader and a README released under the
 MIT License. I'd love the community to contribute to this; this is the first version,
 and over time we can make it better and better!
 
@@ -215,7 +215,7 @@ you are unsure whether something fits.
 
 ## License
 
-OpenMetaHarness, the bootloader and README, is [MIT-licensed](LICENSE): free to use,
+OpenMetaLoop, the bootloader and README, is [MIT-licensed](LICENSE): free to use,
 read, fork, and modify.
 
 Projects created with the bootloader are private and proprietary by default. That is a
