@@ -2,6 +2,8 @@
 
 *The one-file bootloader for persistent, self-adaptive project agents.*
 
+This file contains the complete portable protocol and the templates it installs.
+
 ## Procedure — execute in this order
 
 ### Step 1 — Refine the goal, briefly
