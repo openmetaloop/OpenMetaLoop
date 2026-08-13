@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="230" viewBox="0 0 1600 230" role="img" aria-labelledby="title desc">
-  <metadata>OpenMetaLoop lifecycle overview</metadata>
+  <metadata>How the OpenMetaLoop lifecycle works</metadata>
   <title id="title">OpenMetaLoop lifecycle phases</title>
   <desc id="desc">Six phases arranged from left to right: Define and preflight; Bootstrap and validate; Orient and plan each run; Execute, challenge, and judge; Synthesize, learn, and checkpoint; Continue, recover, or close.</desc>
 
