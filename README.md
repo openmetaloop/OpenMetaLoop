@@ -24,6 +24,9 @@ stretches.
 
 ## Start
 
+The repository is intentionally compact: `openmetaloop.md` is the complete bootloader,
+`banner.png` is the README header, and `lifecycle.svg` summarizes the operating loop.
+
 Create a new directory, put [`openmetaloop.md`](openmetaloop.md) inside it, and
 open your coding agent in that directory. Then type:
 
