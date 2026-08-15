@@ -8,10 +8,10 @@
   >
 </p>
 
-Coding agents are highly capable inside a single context window. **OpenMetaLoop turns
+Coding agents are highly capable inside a single context window. OpenMetaLoop turns
 the repository into the persistent coordination and memory layer for otherwise
 ephemeral coding agents. This allows you to complete long-horizon coding projects
-across context windows, sessions, agents, and collaborators on GitHub.** As the
+across context windows, sessions, agents, and collaborators on GitHub. As the
 repository evolves, any compatible coding agent can resume with richer context, repeat
 fewer mistakes, and work autonomously for longer stretches because the project's
 memory, judgment, and discipline compound over time.
