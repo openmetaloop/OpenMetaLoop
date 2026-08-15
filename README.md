@@ -1,20 +1,20 @@
-# 🐶 OpenMetaLoop: A one-file bootloader for your next coding-agent project
+# 🐶 OpenMetaLoop: One file for long-horizon coding across context windows and sessions.
 
 <p align="center">
   <img
     src="banner.png"
-    alt="OpenMetaLoop: A one-file bootloader for your next coding-agent project."
+    alt="OpenMetaLoop: One file for long-horizon coding across context windows and sessions."
     width="100%"
   >
 </p>
 
-Coding agents have become highly capable, but they can be unreliable on long-horizon,
-evolving projects that unfold across many context windows.
+Coding agents are highly capable inside a single context window. OpenMetaLoop gives
+them one portable file for carrying a long-horizon coding project across context
+windows and sessions.
 
-OpenMetaLoop is a cognitive architecture that enables coding agents to develop and
-execute on a long-horizon project vision from 0 to 1 with minimal human
-intervention and maximum token efficiency across multiple sessions and context
-windows.
+The file bootstraps the goals, memory, planning, verification, and handoff structure a
+coding agent needs to keep executing a project from 0 to 1 with minimal human
+intervention and efficient use of context.
 
 You will be able to direct a persistent engineering operation whose memory, judgment,
 and discipline compound with the project. As the project accumulates verified

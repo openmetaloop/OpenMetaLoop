@@ -1,6 +1,6 @@
 # OpenMetaLoop Bootloader
 
-*The one-file bootloader for persistent, self-adaptive project agents.*
+*One file for long-horizon coding across context windows and sessions.*
 
 This file is the complete portable loop bootloader, including the protocol and every
 template it installs.
