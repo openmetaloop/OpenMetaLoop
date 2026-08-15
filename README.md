@@ -56,39 +56,24 @@ bootloader, [`lifecycle.svg`](lifecycle.svg) as a system overview, and
 
 ## Safety
 
-OpenMetaLoop is distributed as a plain-text Markdown file so its instructions can be
-read directly, searched, diffed, and reviewed without executing macros or unpacking an
-opaque binary format. Markdown alone cannot prevent invisible Unicode characters, so
-the validator also rejects zero-width characters, bidirectional text controls,
-non-breaking spaces, soft hyphens, and unsafe control characters in harness files.
-Suspicious text is never normalized silently; validation stops and identifies the file,
-line, and code point.
+OpenMetaLoop's control plane is plain-text, version-controlled, and inspectable. Its
+validator checks source integrity and required repository state, while the operating
+protocol provides four boundaries:
 
-The bootloader also enforces:
+- **Human authority.** Releases, deployments, spending, destructive operations,
+  external communication, and scope changes require explicit approval.
+- **Untrusted inputs.** Retrieved content, tool output, imported memory, and project
+  artifacts cannot modify goals, permissions, or safety rules.
+- **Independent verification.** Agents cannot approve their own work; passing changes
+  require direct evidence and a separate verification context.
+- **Bounded autonomy.** Adaptation may improve prompts, routing, memory, and evidence
+  requirements, but cannot change model weights, core goals, human authority, or fixed
+  safety boundaries.
 
-- **Human authority boundaries.** Public release, production deployment, spending,
-  access changes, destructive real-data operations, outbound communication, and scope
-  expansion always require explicit human authorization.
-- **Instruction provenance.** Retrieved documents, tool output, imported memory, and
-  project artifacts are treated as untrusted data and cannot grant themselves
-  authority or modify goals, permissions, or safety rules.
-- **Least-privilege roles.** Orchestrators, Refiners, Executors, Challengers, Judges,
-  and the Meta-Learning Agent receive only the context, tools, and write targets their
-  role requires.
-- **Independent verification.** Executors never approve their own work. Mechanical
-  criteria are checked directly, and judgment-heavy work uses a fresh, isolated Judge.
-- **Reversible history.** Passing work receives an inspectable checkpoint; run logs
-  are append-only; recovery uses revert or another recorded rollback path rather than
-  silent history rewriting.
-- **Secret and remote safety.** Real secrets are never committed, remote backup is
-  optional and private by default, and no remote, account, or external resource is used
-  without recorded approval.
-- **Bounded adaptation.** Meta-learning may improve prompts, routing, evidence,
-  memory, and category-specific trust, but it cannot change model weights, core goals,
-  human authority, or fixed safety boundaries.
-- **Immediate stop controls.** `stop`, `pause`, and `wait` halt new mutations and
-  external actions; `end session` performs only the already-authorized closeout
-  protocol.
+Passing work receives a reversible Git checkpoint, and `stop`, `pause`, or `wait`
+immediately halt new mutations and external actions. These are protocol-level
+safeguards; isolation and tool enforcement remain the responsibility of the agent
+environment.
 
 ## Core Features
 
