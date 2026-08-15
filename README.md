@@ -100,17 +100,17 @@ of the agent environment.
 ## How It Works
 
 ```text
-BOOTSTRAP ONCE
-Bootloader → agentic repository → local Git checkpoint
-                                    └→ optional private GitHub backup
+Bootstrap Once
+Bootloader → Agentic Repository → Local Git Checkpoint
+                                    └→ Optional Private GitHub Backup
 
-REPEATING LOOP
-Plan → Execute → Verify → Learn + checkpoint
+Repeating Loop
+Plan → Execute → Verify → Learn + Checkpoint
   ↑                                  │
-  └──────── continue or resume ───────┘
+  └──────── Continue or Resume ───────┘
 
-PERSISTENT REPOSITORY STATE
-Goals · state · memory · evidence · Git history
+Persistent Repository State
+Goals · State · Memory · Evidence · Git History
 ```
 
 OpenMetaLoop separates transient model execution from durable project state. Models
