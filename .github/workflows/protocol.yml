@@ -1,0 +1,175 @@
+name: Protocol integrity
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Extract and check the embedded helper
+        run: |
+          python - <<'PY'
+          import pathlib
+          import re
+          import sys
+          import unicodedata
+
+          source = pathlib.Path("openmetaloop.md").read_text(encoding="utf-8")
+          marker = "### `scripts/agent_memory.py`\n\n```python\n"
+          start = source.index(marker) + len(marker)
+          end = source.index(
+              "\n```\n\nAfter writing this file, run `chmod +x scripts/agent_memory.py`.",
+              start,
+          )
+          pathlib.Path("/tmp/agent_memory.py").write_text(
+              source[start:end], encoding="utf-8"
+          )
+
+          for filename in ("README.md", "openmetaloop.md"):
+              text = pathlib.Path(filename).read_text(encoding="utf-8")
+              stack = []
+              for line_number, line in enumerate(text.splitlines(), 1):
+                  match = re.match(r"^\s*(`{3,})(.*)$", line)
+                  if not match:
+                      continue
+                  ticks, tail = match.groups()
+                  if not stack:
+                      stack.append((len(ticks), line_number))
+                  elif len(ticks) >= stack[-1][0] and not tail.strip():
+                      stack.pop()
+              if stack:
+                  raise SystemExit(
+                      f"{filename}: unclosed Markdown fence at line {stack[-1][1]}"
+                  )
+              for line_number, line in enumerate(text.splitlines(), 1):
+                  for column, character in enumerate(line, 1):
+                      category = unicodedata.category(character)
+                      unsafe = (
+                          category in {"Cc", "Cf", "Zl", "Zp"}
+                          or (category == "Zs" and character != " ")
+                          or character == "\u00ad"
+                      )
+                      if unsafe:
+                          raise SystemExit(
+                              f"{filename}:{line_number}:{column} contains "
+                              f"U+{ord(character):04X}"
+                          )
+          PY
+          python -m py_compile /tmp/agent_memory.py
+          python /tmp/agent_memory.py self-test
+      - name: Run helper integration scenarios
+        run: |
+          python - <<'PY'
+          import importlib.util
+          import pathlib
+          import tempfile
+
+          spec = importlib.util.spec_from_file_location(
+              "agent_memory", "/tmp/agent_memory.py"
+          )
+          helper = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(helper)
+
+          def expect_exit(function, label):
+              try:
+                  function()
+              except SystemExit:
+                  return
+              raise AssertionError(f"expected fail-closed behavior: {label}")
+
+          with tempfile.TemporaryDirectory() as directory:
+              root = pathlib.Path(directory)
+              (root / "logs").mkdir()
+              (root / "memory").mkdir()
+              helper.ROOT = root
+              helper.LOGS_DIR = root / "logs"
+              helper.MEMORY_DIR = root / "memory"
+              helper.META_LEARNING = helper.MEMORY_DIR / "meta_learning.md"
+              helper.SHORT_TERM = helper.MEMORY_DIR / "short_term.md"
+              helper.STATE = helper.MEMORY_DIR / "state.md"
+              helper.ROADMAP = root / "roadmap.md"
+              helper.ARCHIVE = helper.LOGS_DIR / "archive.md"
+              helper.TRUST_EVENT_ARCHIVE = helper.LOGS_DIR / "trust_events_archive.md"
+              helper.TRUST_LEDGER = helper.MEMORY_DIR / "trust_ledger.md"
+
+              helper.META_LEARNING.write_text(
+                  "# Meta-Learning\n\n"
+                  "### [E-1] lesson\n"
+                  "- kind: process-lesson\n"
+                  "- scope: workspace\n"
+                  "- surprise: 4\n"
+                  "- importance: 4\n"
+                  "- weight: 16\n"
+                  "- classification: important-surprising\n"
+                  "- disposition: retained\n"
+                  "- portable: no\n"
+                  "- Tried: old method\n"
+                  "- Observed: failed\n"
+                  "- Rule going forward: use the new method\n",
+                  encoding="utf-8",
+              )
+              (helper.MEMORY_DIR / "long_term.md").write_text(
+                  "# Long-Term Memory\n", encoding="utf-8"
+              )
+              assert helper._validate_durable_memory() == []
+
+              helper.SHORT_TERM.write_text(
+                  "# Short-Term Memory\n\n## Entries\n_(newest first)_\n",
+                  encoding="utf-8",
+              )
+              expect_exit(
+                  lambda: helper.append_short_term_entry(
+                      "not-a-run classification=surprising-low-value "
+                      "disposition=short-term-only weight=3 item -> evidence",
+                      None,
+                  ),
+                  "short-term run ID provenance",
+              )
+
+              helper.TRUST_LEDGER.write_text(
+                  "# Trust Ledger\n\n## Categories\n"
+                  + helper.TRUST_TABLE_HEADER
+                  + "| _(none yet)_ | | | | | |\n\n## Trust events\n"
+                  + helper.TRUST_EVENT_HEADER
+                  + "| _(none yet)_ | | | | | | | |\n",
+                  encoding="utf-8",
+              )
+              helper.record_automerge("docs", "merge-a", "PR-1", "tests")
+              helper.record_automerge("docs", "merge-b", "PR-2", "tests")
+              helper.record_revert("docs", "revert-a", "merge-a", "PR-3", "failure")
+              expect_exit(
+                  lambda: helper.record_revert(
+                      "docs", "revert-b", "merge-a", "PR-4", "same failure"
+                  ),
+                  "duplicate revert",
+              )
+
+              helper.META_LEARNING.write_text(
+                  "| Long-term entry cap | -1 | invalid test value |\n",
+                  encoding="utf-8",
+              )
+              expect_exit(
+                  lambda: helper._read_tunable_int("Long-term entry cap", 60),
+                  "unsafe memory cap",
+              )
+
+              external = root / "external"
+              external.mkdir()
+              (root / "linked").symlink_to(external, target_is_directory=True)
+              expect_exit(
+                  lambda: helper._require_direct_local_path(root / "linked" / "state.md"),
+                  "symlinked control path",
+              )
+
+          print("OpenMetaLoop integration scenarios valid")
+          PY

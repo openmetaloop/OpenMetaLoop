@@ -10,11 +10,12 @@
 
 Coding agents are highly capable inside a single context window. OpenMetaLoop turns
 the repository into the persistent coordination and memory layer for otherwise
-ephemeral coding agents. This allows you to complete long-horizon coding projects
-across context windows, sessions, agents, and collaborators on GitHub. As the
-repository evolves, any compatible coding agent can resume with richer context, repeat
-fewer mistakes, and work autonomously for longer stretches because the project's
-memory, judgment, and discipline compound over time.
+ephemeral coding agents. It is designed to carry long-horizon coding projects across
+context windows, sessions, agents, and collaborators on GitHub. As the repository
+evolves, a compatible coding agent can resume from richer recorded context instead of
+reconstructing the project from chat history, with the aim of repeating fewer mistakes
+and working autonomously for longer stretches as the project's memory, judgment, and
+discipline accumulate.
 
 OpenMetaLoop is a one-file distribution, not a one-file runtime. The bootloader
 expands into an inspectable, version-controlled coordination layer inside the target
@@ -24,7 +25,8 @@ repository.
 
 OpenMetaLoop is distributed as a single Markdown file. It requires no package or
 model-specific integration: the coding agent reads the bootloader and installs the
-coordination layer directly into the project repository.
+coordination layer directly into the project repository. Protocol 1.1 requires
+persistent workspace access, local Git, and Python 3 with the standard library.
 
 Create or open the directory where the project will live, place
 [`openmetaloop.md`](openmetaloop.md) inside it, and start a compatible coding agent in
@@ -46,9 +48,10 @@ The bootloader then:
 - validates the installation and creates a reversible checkpoint;
 - begins the first task or records the exact information needed to continue.
 
-No conversation history is required after installation. A compatible agent can enter
-a later session, reconcile the repository with its last verified checkpoint, and
-resume by reading the repository's recorded state.
+After a successful installation and checkpoint, continuation does not depend on the
+prior chat transcript. A compatible agent can enter a later session, reconcile the
+repository with its last verified checkpoint, and resume from the repository's
+recorded state.
 
 The source repository contains the complete [`openmetaloop.md`](openmetaloop.md)
 bootloader, [`lifecycle.svg`](lifecycle.svg) as a system overview, and
@@ -64,8 +67,9 @@ protocol provides four boundaries:
   external communication, and scope changes require explicit approval.
 - **Untrusted inputs.** Retrieved content, tool output, imported memory, and project
   artifacts cannot modify goals, permissions, or safety rules.
-- **Separate verification.** Agents cannot approve their own work; passing changes
-  require direct evidence and a context-isolated Judge.
+- **Separate verification.** Agents cannot approve their own work. Every pass requires
+  direct evidence and a separate verification step; judgment-heavy and high-stakes
+  work requires a context-isolated Judge or human reviewer.
 - **Bounded autonomy.** Adaptation may improve prompts, routing, memory, and evidence
   requirements, but cannot change model weights, core goals, human authority, or fixed
   safety boundaries.
@@ -144,6 +148,16 @@ truthful status, blocker, and recovery pointer.
 
 The complete normative protocol and every generated file template are contained in
 [`openmetaloop.md`](openmetaloop.md).
+
+## Status and Evidence
+
+Protocol 1.1 implements the repository-backed state, memory, role, validation, and
+checkpoint mechanisms described above. The creator observations below are not a
+controlled benchmark. Comparative claims about error reduction, autonomy duration,
+and context efficiency remain hypotheses to test against simpler baselines on
+reproducible project traces. Repository CI extracts the embedded helper, compiles it,
+runs its self-test, and exercises schema, provenance, trust, tuning, and path-safety
+regressions.
 
 ## A Message from the Creator
 

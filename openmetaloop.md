@@ -56,6 +56,11 @@ Before mutation, inspect and record:
 - permission for the exact global meta-memory path (local-only by default);
 - budget/authority limits already stated by the user.
 
+OpenMetaLoop 1.1 requires persistent workspace writes, local Git, and Python 3 with
+the standard library. If any of those three prerequisites is unavailable, stop setup
+with an explicit blocker; do not claim that the generated validator or bookkeeping
+protocol is installed. Other capabilities may use their recorded fallbacks.
+
 Record the resolved target, repository boundary, dirty-state summary, capability
 evidence and observation time, selected model probes, verification path, approved
 external scope, exact global-memory path, and budget/authority limits in
@@ -104,6 +109,12 @@ initialize a nested repository inside an existing repository. Git is the default
 checkpoint and audit substrate even for non-software work; if the workspace contains
 artifacts Git cannot reasonably store, commit manifests and pointers rather than large
 or sensitive binaries.
+
+Before appending to `.gitignore` or installing control files in an existing workspace,
+reject any symlinked path component in `.gitignore`, `.github/`, `attention/`, `goals/`,
+`logs/`, `memory/`, `orchestration/`, or `scripts/`. Harness-owned control paths must
+resolve inside the workspace boundary. The only permitted external write target is the
+exact global-memory file separately authorized in `harness_manifest.md`.
 
 (Add domain-specific ignores once the tools and artifact types are known; do not guess
 them before then.)
@@ -212,19 +223,6 @@ For non-software profiles, define equivalent verification commands or procedures
 schema checks, or a concrete manual rubric. "Looks reasonable" is not a verification
 method.
 
-After the architecture, goal stack, manifest, setup, and selected domain artifacts are
-filled and the setup smoke procedure has passed, record its UTC time and evidence
-pointer in `setup.md`, then run:
-
-```sh
-python3 scripts/agent_memory.py validate
-```
-
-Do not create the bootstrap checkpoint while validation reports a missing required file,
-unresolved critical placeholder, or protocol-version mismatch.
-After a successful run, record `validated_at` and `validation_evidence` in the manifest
-and run validation once more so those final manifest bytes are the ones checkpointed.
-
 **Step 4c — add a license.** Default to **private/proprietary — all rights reserved to
 the project's owner**, not a permissive open-source license, unless the user explicitly
 asks for one (MIT, Apache-2.0, etc.) instead. Write the **"Proprietary LICENSE
@@ -235,6 +233,19 @@ License section at it instead of leaving "TBD." The
 default assumption is that a new project is private work product, not something
 being given away — flip it to a permissive license only on explicit instruction,
 since that's a much easier direction to reverse than the other way around.
+
+After the architecture, goal stack, manifest, setup, license, and selected domain
+artifacts are filled and the setup smoke procedure has passed, record its UTC time and
+evidence pointer in `setup.md`, then run:
+
+```sh
+python3 scripts/agent_memory.py validate
+```
+
+Do not create the bootstrap checkpoint while validation reports a missing required
+file, unresolved critical placeholder, or protocol-version mismatch. After a successful
+run, record `validated_at` and `validation_evidence` in the manifest and run validation
+once more so those final manifest bytes are the ones checkpointed.
 
 ### Step 5 — Configure the checkpoint backend
 
@@ -442,9 +453,12 @@ breaking semantic change would require 2.0.0 and its own migration note.
 repository state persists, replaces append-only protocol prose with
 compatibility-preserving evolution, distinguishes artifact checkpoints from terminal
 control-state checkpoints, aligns the run-state diagram with the closed enum, and fixes
-global-memory path handling. Existing project artifacts, memory, logs, checkpoints,
-goals, and approved authority remain unchanged. Update generated templates and helper
-scripts together, recompute the installed-module hashes, then set
+global-memory paths, process-lesson parsing, trust-revert deduplication, short-term
+provenance, blank frontmatter parsing, symlink handling, and fail-closed memory tuning.
+It also makes the existing Git and Python bootstrap dependencies explicit. Existing
+project artifacts, memory, logs, checkpoints, goals, and approved authority remain
+unchanged. Update generated templates and helper scripts together, recompute the
+installed-module hashes, then set
 `protocol_version: 1.1.0` and record the migration evidence.
 
 ### Classic software compatibility profile
@@ -1023,8 +1037,11 @@ Models are routed by the cost of being wrong, not by brand name.
 This separation is provider-neutral. At bootstrap, map the best available models onto
 the three capability tiers and record the mapping in `setup.md`. Names such as Opus,
 GPT, Gemini, or any future product are examples, never protocol dependencies. If only
-one model is available, run the roles sequentially with fresh, isolated role prompts;
-preserve the boundaries even when the underlying model is the same.
+one model is available and the environment can create fresh isolated invocations, run
+the roles sequentially in those isolated contexts. A prompt-only role reset inside one
+shared context is a degraded fallback, not context isolation: it may support execution
+and mechanical checks, but judgment-heavy or high-stakes work cannot receive `pass`
+until a context-isolated Judge or human reviewer is available.
 
 The loop keeps Frontier context small and decisive, uses the Refiner to remove
 ambiguity and context sprawl, and routes mechanical volume to Flash. Its quality goal is to
@@ -1158,9 +1175,11 @@ Meta-Learning Agent determines what the *system must learn from the run*.
   review cross-project candidates, and audit whether the learning system is actually
   reducing repeated errors.
 
-If a distinct Frontier context is unavailable, execute this role sequentially with a
-fresh context and only the inputs above. Never skip the role because the same underlying
-model must be reused.
+If a distinct Frontier model is unavailable, execute this role sequentially with a
+fresh isolated invocation of the same model and only the inputs above. If the
+environment cannot create that invocation, record the degraded capability and require
+human review for judgment-heavy or high-stakes completion; a prompt-only role reset
+must not be labeled context-isolated.
 
 ## Loop sequence
 0. **Orient (Frontier, once per run).** Reconcile `memory/state.md` with reality. Read
@@ -1867,10 +1886,10 @@ and to `continue` whenever an installed harness resumes.
 
 | Capability | Available | Observed at | Evidence / command | Fallback |
 |---|---|---|---|---|
-| Persistent workspace writes | yes / no | | | |
-| Local Git | yes / no | | | versioned files/snapshots |
-| Python 3 stdlib | yes / no | | | manual bookkeeping |
-| Fresh isolated agent contexts | yes / no | | | sequential role reset |
+| Persistent workspace writes | yes / no | | | setup blocked when no |
+| Local Git | yes / no | | | setup blocked when no |
+| Python 3 stdlib | yes / no | | | setup blocked when no |
+| Fresh isolated agent contexts | yes / no | | | degraded role reset; block judgment-heavy/high-stakes pass |
 | Parallel agents | yes / no | | | sequential execution |
 | External symbolic attention / context manifests | yes / no | | | manual context manifest |
 | Tool permission scoping | yes / no | | | prompt boundary + user approval |
@@ -1881,6 +1900,11 @@ and to `continue` whenever an installed harness resumes.
 Every `Available` cell must resolve to `yes` or `no`. Evidence must be reproducible,
 and any capability used by the active run must be rechecked when its authentication,
 session, environment, or tool availability could have changed.
+
+Persistent workspace writes, local Git, and Python 3 stdlib are installation
+prerequisites in protocol 1.1. A `no` for any of those rows blocks setup. A `no` for
+fresh isolated contexts activates the degraded fallback above; it does not justify
+describing a same-context judgment as isolated.
 
 ## Model qualification
 
@@ -2792,6 +2816,10 @@ mis-set, and note the change as its own entry below.
 | Momentum trigger | surprise ≥ 4 | contradictions must reconcile immediately |
 | Cleaner cadence | every ~20 runs or milestone boundary | amortizes consolidation overhead |
 
+The helper fails closed outside these safety ranges: decay `-5..-1`, prune threshold
+`0..8`, long-term and meta-learning caps `10..500`, and active trust-event cap
+`10..2000`. Changing a range is a protocol change, not an ordinary self-tuning action.
+
 ## Self-tuning protocol
 Run this review as part of every periodic **Clean and consolidate** phase in
 [`orchestration/loop.md`](../orchestration/loop.md), every ~20 runs — the table above
@@ -3118,12 +3146,22 @@ GLOBAL_HEADER = (
 )
 
 ENTRY_RE = re.compile(r"^### \[E-(?P<id>[A-Za-z0-9._-]+)\].*$", re.MULTILINE)
+ENTRY_FIELD_RE = re.compile(
+    r"^- (?P<key>[A-Za-z][A-Za-z0-9-]*(?: [A-Za-z][A-Za-z0-9-]*)*):\s*(?P<value>.*)$"
+)
 
 DECAY_PER_PASS = 2
 PRUNE_THRESHOLD = 4
 LONG_TERM_ENTRY_CAP = 60
 META_LEARNING_ENTRY_CAP = 40
 ACTIVE_TRUST_EVENT_CAP = 100
+TUNABLE_RANGES = {
+    "Decay per idle consolidation pass": (-5, -1),
+    "Prune threshold": (0, 8),
+    "Long-term entry cap": (10, 500),
+    "Meta-learning entry cap": (10, 500),
+    "Active trust-event cap": (10, 2000),
+}
 MEMORY_CLASSIFICATIONS = {
     "important-surprising",
     "important-expected",
@@ -3272,7 +3310,9 @@ def _exclusive_lock(target: Path, timeout: float = 5.0):
 
 
 def _frontmatter_value(content: str, key: str) -> str | None:
-    match = re.search(rf"^{re.escape(key)}:\s*(.*?)\s*$", content, re.MULTILINE)
+    match = re.search(
+        rf"^{re.escape(key)}:[ \t]*(.*?)[ \t]*$", content, re.MULTILINE
+    )
     return match.group(1) if match else None
 
 
@@ -3322,6 +3362,30 @@ def _read_safe_utf8(path: Path) -> tuple[str | None, list[str]]:
     return content, errors
 
 
+def _first_symlink_component(path: Path) -> Path | None:
+    """Return the first symlink below ROOT, or None when the local path is direct."""
+    try:
+        relative = path.relative_to(ROOT)
+    except ValueError:
+        return path
+    current = ROOT
+    for component in relative.parts:
+        current = current / component
+        if current.is_symlink():
+            return current
+    return None
+
+
+def _require_direct_local_path(path: Path) -> None:
+    symlink = _first_symlink_component(path)
+    if symlink is not None:
+        try:
+            display = symlink.relative_to(ROOT)
+        except ValueError:
+            display = symlink
+        raise SystemExit(f"Refusing harness write through symlinked path: {display}")
+
+
 def _require(condition: object, message: str) -> None:
     """Check one helper invariant.
 
@@ -3339,6 +3403,10 @@ def self_test() -> None:
     _require(
         not RUN_ID_RE.fullmatch("../escaped"),
         "a traversal path must not be accepted as a run ID",
+    )
+    _require(
+        _frontmatter_value("optional:\nnext: value\n", "optional") == "",
+        "a blank frontmatter value must not consume the next line",
     )
     _require(
         {"passed", "learned", "checkpointed", "complete"} <= VALID_RUN_STATES,
@@ -3374,6 +3442,31 @@ def self_test() -> None:
     _require(
         parsed[0]["fields"]["Tried"] == "first line continued detail",
         "a wrapped field continuation must be joined onto its field",
+    )
+    _require(
+        parsed[0]["fields"]["Rule going forward"] == "rule",
+        "a schema field containing spaces must parse exactly",
+    )
+    changed_rule = sample_entry.replace(
+        "- Rule going forward: rule", "- Rule going forward: different rule"
+    )
+    _require(
+        _entry_fingerprint(parsed[0])
+        != _entry_fingerprint(_parse_entries(changed_rule)[0]),
+        "the durable fingerprint must include the process lesson's rule",
+    )
+    _require(
+        TUNABLE_RANGES["Long-term entry cap"][0]
+        <= LONG_TERM_ENTRY_CAP
+        <= TUNABLE_RANGES["Long-term entry cap"][1],
+        "the default long-term cap must remain inside its fail-closed range",
+    )
+    sample_trust_event = (
+        "| id | time | revert | docs | revert-commit | merged-commit | review | evidence |\n"
+    )
+    _require(
+        _has_revert_for_checkpoint(sample_trust_event, "docs", "merged-commit"),
+        "a previously recorded revert must be detected by related checkpoint",
     )
     updated_entry = _set_entry_field(sample_entry, "kind", "fact")
     _require(
@@ -3411,8 +3504,16 @@ def validate_installation() -> list[str]:
     }
     required_files.extend(domain_files.get(domain, []))
 
+    reported_symlinks = set()
     for relative in required_files:
         path = ROOT / relative
+        symlink = _first_symlink_component(path)
+        if symlink is not None:
+            display = str(symlink.relative_to(ROOT))
+            if display not in reported_symlinks:
+                errors.append(f"harness-owned path uses a symlink: {display}")
+                reported_symlinks.add(display)
+            continue
         if not path.exists():
             errors.append(f"missing required file: {relative}")
             continue
@@ -3519,6 +3620,19 @@ def validate_installation() -> list[str]:
             if not observed.strip() or not evidence.strip():
                 errors.append(
                     f"capability '{capability.strip()}' needs observation time and evidence"
+                )
+        prerequisite_capabilities = {
+            "Persistent workspace writes",
+            "Local Git",
+            "Python 3 stdlib",
+        }
+        for capability, available, _observed, _evidence, _fallback in capability_rows:
+            if (
+                capability.strip() in prerequisite_capabilities
+                and available.strip() != "yes"
+            ):
+                errors.append(
+                    f"required bootstrap capability '{capability.strip()}' must be yes"
                 )
         expected_capabilities = {
             "Persistent workspace writes",
@@ -3685,8 +3799,10 @@ def write_run_log(run_id: str, content: str) -> Path:
     for section in required_sections:
         if f"## {section}\n" not in content:
             raise SystemExit(f"Run log missing required section: ## {section}")
+    _require_direct_local_path(LOGS_DIR)
     LOGS_DIR.mkdir(exist_ok=True)
     path = LOGS_DIR / f"{run_id}.md"
+    _require_direct_local_path(path)
     if path.parent.resolve() != LOGS_DIR.resolve():
         raise SystemExit(f"Run log path escapes logs directory: {path}")
     # Logs are append-only. Exclusive creation turns an accidental duplicate run ID
@@ -3702,6 +3818,9 @@ def write_run_log(run_id: str, content: str) -> Path:
 def append_short_term_entry(line: str, oldest_disposition: str | None) -> str | None:
     if "\n" in line or not line.strip():
         raise SystemExit("Short-term entry must be one non-empty line")
+    run_match = re.match(r"^\[([^\]]+)\]\s+", line)
+    if not run_match or not RUN_ID_RE.fullmatch(run_match.group(1)):
+        raise SystemExit("Short-term entry must begin with a canonical [run-id]")
     classification_match = re.search(r"\bclassification=([\w-]+)\b", line)
     disposition_match = re.search(r"\bdisposition=([\w-]+)\b", line)
     weight_match = re.search(r"\bweight=(\d+)\b", line)
@@ -3728,6 +3847,7 @@ def append_short_term_entry(line: str, oldest_disposition: str | None) -> str | 
         raise SystemExit(
             f"{classification} requires disposition={required_disposition}"
         )
+    _require_direct_local_path(SHORT_TERM)
     with _exclusive_lock(SHORT_TERM):
         content = SHORT_TERM.read_text()
         content = content.replace("- _(empty — first run hasn't happened yet)_\n", "")
@@ -3778,6 +3898,9 @@ def update_state(
     checkpoint: str | None,
     next_action: str | None,
 ) -> None:
+    _require_direct_local_path(STATE)
+    if ROADMAP.exists():
+        _require_direct_local_path(ROADMAP)
     if run_id is not None and not RUN_ID_RE.fullmatch(run_id):
         raise SystemExit(f"Invalid run ID: {run_id}")
     content = STATE.read_text()
@@ -3926,10 +4049,10 @@ def _parse_entries(content: str) -> list[dict]:
         fields = {}
         current_key = None
         for line in block.splitlines()[1:]:
-            field = re.match(r"^- ([\w-]+):\s*(.*)$", line)
+            field = ENTRY_FIELD_RE.match(line)
             if field:
-                current_key = field.group(1)
-                fields[current_key] = field.group(2).strip()
+                current_key = field.group("key")
+                fields[current_key] = field.group("value").strip()
             elif current_key and not line.startswith("- "):
                 continuation = line.strip()
                 if continuation:
@@ -4098,13 +4221,19 @@ def _configured_global_memory_path() -> Path | None:
 def _read_tunable_int(label: str, default: int) -> int:
     """Read an integer from meta_learning.md's tunable-parameters table."""
     if not META_LEARNING.exists():
-        return default
-    pattern = rf"^\|\s*{re.escape(label)}\s*\|\s*([^|]+)\|"
-    match = re.search(pattern, META_LEARNING.read_text(), re.MULTILINE)
-    if not match:
-        return default
-    value = re.search(r"-?\d+", match.group(1))
-    return int(value.group(0)) if value else default
+        selected = default
+    else:
+        pattern = rf"^\|\s*{re.escape(label)}\s*\|\s*([^|]+)\|"
+        match = re.search(pattern, META_LEARNING.read_text(), re.MULTILINE)
+        value = re.search(r"-?\d+", match.group(1)) if match else None
+        selected = int(value.group(0)) if value else default
+    minimum, maximum = TUNABLE_RANGES[label]
+    if not minimum <= selected <= maximum:
+        raise SystemExit(
+            f"Memory cleaner tunable '{label}' must be between {minimum} and "
+            f"{maximum}; found {selected}"
+        )
+    return selected
 
 
 def _decay_file(
@@ -4244,6 +4373,14 @@ def _enforce_trust_event_cap(cap: int, today: str) -> int:
 
 
 def clean_memory(pass_id: str) -> None:
+    for local_path in (
+        MEMORY_DIR / "long_term.md",
+        MEMORY_DIR / "meta_learning.md",
+        MEMORY_DIR / ".last_decay_pass",
+        ARCHIVE,
+        TRUST_EVENT_ARCHIVE,
+    ):
+        _require_direct_local_path(local_path)
     if not RUN_ID_RE.fullmatch(pass_id):
         raise SystemExit(f"Cleaner pass ID must be a canonical run ID: {pass_id}")
     classification_errors = _validate_durable_memory()
@@ -4345,6 +4482,7 @@ def seed_from_global() -> int:
         return 0
 
     local_path = MEMORY_DIR / "meta_learning.md"
+    _require_direct_local_path(local_path)
     with _exclusive_lock(local_path):
         content = local_path.read_text()
         local_fingerprints = {
@@ -4507,12 +4645,26 @@ def _append_trust_event(
     _atomic_write(TRUST_LEDGER, content + row)
 
 
+def _has_revert_for_checkpoint(
+    content: str, category: str, related_checkpoint: str
+) -> bool:
+    return bool(
+        re.search(
+            rf"^\| [^|]+ \| [^|]+ \| revert \| {re.escape(category)} \| "
+            rf"[^|]+ \| {re.escape(related_checkpoint)} \|",
+            content,
+            re.MULTILINE,
+        )
+    )
+
+
 def record_automerge(
     category: str, checkpoint: str, review: str, evidence: str
 ) -> str:
     """Log a clean auto-merge. This command must not be used while supervised."""
     if category not in VALID_CATEGORIES:
         raise ValueError(f"Unknown category: {category}")
+    _require_direct_local_path(TRUST_LEDGER)
     with _exclusive_lock(TRUST_LEDGER):
         rows = _read_trust_rows()
         row = rows.setdefault(
@@ -4536,6 +4688,7 @@ def record_reviewed_merge(
     """Record a human-approved passing merge and count down supervised cooldown."""
     if category not in VALID_CATEGORIES:
         raise ValueError(f"Unknown category: {category}")
+    _require_direct_local_path(TRUST_LEDGER)
     with _exclusive_lock(TRUST_LEDGER):
         rows = _read_trust_rows()
         row = rows.setdefault(
@@ -4566,7 +4719,16 @@ def record_revert(
     "Trust-calibrated autonomy.\""""
     if category not in VALID_CATEGORIES:
         raise ValueError(f"Unknown category: {category}")
+    _require_direct_local_path(TRUST_LEDGER)
     with _exclusive_lock(TRUST_LEDGER):
+        ledger_content = TRUST_LEDGER.read_text()
+        if _has_revert_for_checkpoint(
+            ledger_content, category, related_checkpoint
+        ):
+            raise SystemExit(
+                "Related checkpoint already has a recorded revert in category "
+                f"'{category}': {related_checkpoint}"
+            )
         rows = _read_trust_rows()
         row = rows.get(category)
         if row is None or row["automerges"] <= row["reverts"]:
