@@ -173,16 +173,6 @@ truthful status, blocker, and recovery pointer.
 The complete normative protocol and every generated file template are contained in
 [`openmetaloop.md`](openmetaloop.md).
 
-## Status and Evidence
-
-Protocol 1.1 implements the repository-backed state, memory, role, validation, and
-checkpoint mechanisms described above. The creator observations below are not a
-controlled benchmark. Comparative claims about error reduction, autonomy duration,
-and context efficiency remain hypotheses to test against simpler baselines on
-reproducible project traces. Repository CI extracts the embedded helper, compiles it,
-runs its self-test, and exercises schema, provenance, trust, tuning, and path-safety
-regressions.
-
 ## A Message from the Creator
 
 I've worked with learning systems for more than a decade, since the ImageNet and DQN
