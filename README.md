@@ -12,10 +12,10 @@ Coding agents are highly capable inside a single context window. OpenMetaLoop tu
 the repository into the persistent coordination and memory layer for otherwise
 ephemeral coding agents. It is designed to carry long-horizon coding projects across
 context windows, sessions, agents, and collaborators on GitHub. As the repository
-evolves, a compatible coding agent can resume from richer recorded context instead of
-reconstructing the project from chat history, with the aim of repeating fewer mistakes
-and working autonomously for longer stretches as the project's memory, judgment, and
-discipline accumulate.
+evolves, any coding agent with repository access can resume from richer recorded
+context instead of reconstructing the project from chat history, with the aim of
+repeating fewer mistakes and working autonomously for longer stretches as the
+project's memory, judgment, and discipline accumulate.
 
 OpenMetaLoop is a one-file distribution, not a one-file runtime. The bootloader
 expands into an inspectable, version-controlled coordination layer inside the target
@@ -29,8 +29,8 @@ coordination layer directly into the project repository. Protocol 1.1 requires
 persistent workspace access, local Git, and Python 3 with the standard library.
 
 Create or open the directory where the project will live, place
-[`openmetaloop.md`](openmetaloop.md) inside it, and start a compatible coding agent in
-that directory. Then enter:
+[`openmetaloop.md`](openmetaloop.md) inside it, and start any coding agent with file and
+shell access in that directory. Then enter:
 
 ```text
 Read openmetaloop.md and use it to set up my new project.
@@ -49,9 +49,9 @@ The bootloader then:
 - begins the first task or records the exact information needed to continue.
 
 After a successful installation and checkpoint, continuation does not depend on the
-prior chat transcript. A compatible agent can enter a later session, reconcile the
-repository with its last verified checkpoint, and resume from the repository's
-recorded state.
+prior chat transcript. Any coding agent with the required repository and tool access
+can enter a later session, reconcile the repository with its last verified checkpoint,
+and resume from the repository's recorded state.
 
 The source repository contains the complete [`openmetaloop.md`](openmetaloop.md)
 bootloader and [`banner.png`](banner.png) for project identity.
