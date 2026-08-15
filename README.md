@@ -77,77 +77,31 @@ otherwise, checkpoints remain local. Nothing is made public without explicit app
 ## How It Works
 
 ```text
-Bootstrap Once
-Bootloader → Agentic Repository → Local Git Checkpoint
-                                    └→ Optional Private GitHub Backup
+Set Up Once
+One File → Project Plan + Memory
 
-Repeating Loop
-Plan → Execute → Verify → Learn + Checkpoint
-  ↑                                  │
-  └──────── Continue or Resume ───────┘
+Repeat
+Plan → Build → Check → Learn → Save
+  ↑                              │
+  └────── Continue Next Time ─────┘
 
-Persistent Repository State
-Goals · State · Memory · Evidence · Git History
+Git Saves the Project History
+GitHub Can Back It Up and Share It
 ```
 
-OpenMetaLoop separates transient model execution from durable project state. Models
-supply intelligence for the current task; the repository supplies continuity,
-verification, adaptation, and governance across tasks, agents, and sessions. Model
-weights do not change.
+OpenMetaLoop writes the project's goals, plan, progress, decisions, and lessons into
+the repository. That gives each coding agent a shared source of truth outside the chat.
 
-### Bootstrap once
+For every task, the agent plans the work, builds it, checks the result, records what it
+learned, and saves a checkpoint in Git. Work that does not pass its checks is revised
+or recorded honestly as blocked.
 
-During `setup`, the bootloader creates a new workspace or safely adopts an existing
-one:
+When a session ends, the next agent reads the same repository, verifies the last saved
+state, and can continue. Local Git keeps the history; an approved private GitHub
+repository makes it available across devices and collaborators. OpenMetaLoop stores
+its memory in the repository; it does not change model weights.
 
-```text
-project + scope
-→ define and preflight
-→ create or adopt the workspace
-→ install and configure the control plane
-→ derive goals, milestones, and the task queue
-→ validate
-→ create the initial checkpoint
-```
-
-### Run continuously
-
-Every selected task then moves through the same evidence-gated loop:
-
-```text
-orient and reconcile repository state
-→ select and plan
-→ route bounded context and refine execution packets
-→ execute
-→ challenge when high-stakes
-→ collect evidence, judge, and revise when required
-→ synthesize passing work
-→ learn from the judged outcome
-→ checkpoint and record the next handoff
-→ consolidate memory when due
-→ continue or yield
-```
-
-Context routing is a mandatory gate before every model role, not a one-time phase. An
-agent entering a new session follows the repository's startup pointer chain, reconciles
-the recorded handoff with canonical state and the checkpoint backend, and resumes only
-from verified reality.
-
-| Layer | Repository source of truth |
-|---|---|
-| **Direction** | `goals/core_goals.md`, `goals/task_roadmap.md`, and `goals/todo.md` |
-| **Configuration and architecture** | `harness_manifest.md` and `architecture.md` |
-| **Active coordination and handoff** | `memory/state.md` and root `roadmap.md` |
-| **Execution and context routing** | `orchestration/loop.md` and `attention/context_router.md` |
-| **Durable decisions and adaptation** | `memory/long_term.md`, `memory/meta_learning.md`, and `memory/trust_ledger.md` |
-| **Audit and recovery** | append-only `logs/` and Git or the configured checkpoint backend |
-
-No artifact is integrated unless its required criteria are proven. Every judged run
-records evidence and learning: passing work creates an artifact checkpoint, while a
-terminal non-passing run creates only a control-state checkpoint containing the log,
-truthful status, blocker, and recovery pointer.
-
-The complete normative protocol and every generated file template are contained in
+The complete rules and generated file templates are in
 [`openmetaloop.md`](openmetaloop.md).
 
 ## A Message from the Creator
