@@ -54,8 +54,7 @@ repository with its last verified checkpoint, and resume from the repository's
 recorded state.
 
 The source repository contains the complete [`openmetaloop.md`](openmetaloop.md)
-bootloader, [`lifecycle.svg`](lifecycle.svg) as a system overview, and
-[`banner.png`](banner.png) for project identity.
+bootloader and [`banner.png`](banner.png) for project identity.
 
 ## Safety
 
@@ -81,13 +80,18 @@ environment.
 
 ## How It Works
 
-<p align="center">
-  <img
-    src="lifecycle.svg"
-    alt="A bootloader creates an agentic repository, then work repeats through planning, execution, verification, learning, and checkpointing while repository state persists."
-    width="100%"
-  >
-</p>
+```text
+BOOTSTRAP ONCE
+Bootloader → agentic repository
+
+REPEATING LOOP
+Plan → Execute → Verify → Learn + checkpoint
+  ↑                                  │
+  └──────── continue or resume ───────┘
+
+PERSISTENT REPOSITORY STATE
+Goals · state · memory · evidence
+```
 
 OpenMetaLoop separates transient model execution from durable project state. Models
 supply intelligence for the current task; the repository supplies continuity,
