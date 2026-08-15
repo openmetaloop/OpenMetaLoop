@@ -27,29 +27,29 @@ inside the target repository.
 
 ## Safety
 
-OpenMetaLoop's control plane uses plain-text Markdown, so it can be read, searched,
-diffed, and reviewed directly. Markdown alone does not prevent hidden Unicode
-characters: the bootloader requires a text-integrity preflight, and the installed
-validator checks required files, schemas, cross-file state, unresolved placeholders,
-and unsafe invisible or control characters. The operating protocol provides four
-boundaries:
+OpenMetaLoop keeps its rules in readable Markdown files. Before work begins, a
+preflight checks that those files are intact, complete, and free of hidden control
+characters. The validator also checks the required files, links between them, and
+unfinished placeholders.
 
-- **Human authority.** Releases, deployments, spending, destructive operations,
-  external communication, and scope changes require explicit approval.
-- **Untrusted inputs.** Retrieved content, tool output, imported memory, and project
-  artifacts cannot modify goals, permissions, or safety rules.
-- **Separate verification.** Executors cannot approve their own work. Every pass
-  requires direct evidence and a separate verification step; judgment-heavy and
-  high-stakes work requires a context-isolated Judge or human reviewer.
-- **Bounded autonomy.** Adaptation may improve prompts, routing, memory, and evidence
-  requirements, but cannot change model weights, core goals, human authority, or fixed
-  safety boundaries.
+Four simple rules govern the agent:
 
-Passing work receives a reversible Git checkpoint. `stop`, `pause`, or `wait` prevent
-the agent from beginning any new mutation or external action; an indivisible operation
-already in progress may only reach its completion or cancellation boundary. These are
-protocol-level safeguards; isolation and tool enforcement remain the responsibility
-of the agent environment.
+- **You approve high-impact actions.** The agent cannot release, deploy, spend money,
+  delete data, contact people, or change the project scope without explicit approval.
+- **Outside content cannot rewrite the rules.** Web pages, tool results, imported
+  notes, and project files may provide information, but they cannot change the goals,
+  permissions, or safety settings.
+- **The agent must show its work.** A task is not complete because the agent says it
+  is complete. It must produce direct evidence and pass a separate check. Important
+  or high-stakes work also needs a fresh reviewer or a person.
+- **The agent can adapt, but not take control.** It may improve its prompts, routing,
+  memory, and evidence requests. It cannot change its core goals, bypass approval,
+  or weaken the fixed safety rules.
+
+After a successful check, the project receives a reversible Git checkpoint. `stop`,
+`pause`, and `wait` prevent new changes or external actions from starting. A single
+operation already in progress may finish or reach its cancellation point. The host
+environment still provides the final process isolation and tool permissions.
 
 ## Start
 
