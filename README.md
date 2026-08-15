@@ -64,8 +64,8 @@ protocol provides four boundaries:
   external communication, and scope changes require explicit approval.
 - **Untrusted inputs.** Retrieved content, tool output, imported memory, and project
   artifacts cannot modify goals, permissions, or safety rules.
-- **Independent verification.** Agents cannot approve their own work; passing changes
-  require direct evidence and a separate verification context.
+- **Separate verification.** Agents cannot approve their own work; passing changes
+  require direct evidence and a context-isolated Judge.
 - **Bounded autonomy.** Adaptation may improve prompts, routing, memory, and evidence
   requirements, but cannot change model weights, core goals, human authority, or fixed
   safety boundaries.
@@ -147,51 +147,56 @@ The complete normative protocol and every generated file template are contained 
 
 ## A Message from the Creator
 
-I've been working with multimodal agentic systems ever since the ImageNet and DQN
-days. It's amazing to see all the progress in the community since then. The way I work
-with AI now is exactly what I dreamed of a decade ago.
+I've worked with learning systems since the ImageNet and DQN era, and with multimodal
+and agentic systems as those fields developed. The way I work with AI today is close
+to what I hoped would become possible a decade ago.
 
-When I started vibecoding last year, I came up with new ways to set up projects to
-avoid known issues in long-horizon task execution. I thought it would be great if I
-had one simple file that a coding agent could read when I start a new project to
-address these known issues while improving efficiency and autonomy long-term.
+When I began using coding agents intensively, I kept encountering the same limitation:
+an agent could make impressive progress inside one context window, but goals,
+decisions, operating lessons, and the exact continuation point were easily lost across
+sessions.
 
-OpenMetaLoop has unlocked a better way for me to use AI. It allows me and my
-collaborators to run a persistent engineering operation designed to be model and
-system-agnostic, whose memory, judgment, and operating discipline compound over
-time.
+I wanted one portable file that could turn the repository itself into the durable
+coordination and memory layer. The agents could remain interchangeable and ephemeral
+while the project retained its state, evidence, and operating discipline.
 
-In some of my tests, as the project matured, the loop ran for an hour before needing
-human input. When my collaborator started a new session on a new device with a new
-coding agent all they had to prompt it with was continue where you left off.
+OpenMetaLoop is the result. It is designed to be provider-neutral and
+repository-native. In early use, I saw a mature project continue for roughly an hour
+before requiring another decision from me. In a separate handoff, a collaborator
+opened the repository on a new device with a different coding agent and resumed by
+prompting it to "continue where you left off." These are early observations, not
+benchmark results, but they motivated me to make the system public.
 
-I call this OpenMetaLoop, a one-file bootloader and a README released under the
-MIT License. I'd love the community to contribute to this; this is the first version,
-and over time we can make it better and better!
+OpenMetaLoop is distributed as a self-contained Markdown bootloader and released under
+the MIT License. This is the first public version, and I hope others will help test,
+challenge, and improve it.
 
--[Izhaar Tejani](https://izhaartejani.com)
+— [Izhaar Tejani](https://izhaartejani.com/)
 
 ## Contributing
 
-Contributions are welcome. Three things are worth knowing before you open a pull
-request, because they are easy to get wrong with the best intentions.
+Contributions are welcome. OpenMetaLoop has a deliberately small distribution surface,
+but its implementation should continue to improve as evidence accumulates.
 
-**The project stays this shape.** A README and a one-file bootloader. It will not be
-split into modules, grown into a framework, or given a package to install. Changes that
-would make it something else are out of scope, however well made.
+- **Preserve the product boundary.** OpenMetaLoop remains a self-contained Markdown
+  bootloader with supporting documentation and visual assets. It may install multiple
+  inspectable files inside a project, but it should not require a runtime package,
+  hosted service, or proprietary model.
+- **Preserve invariants, not redundant wording.** Changes may clarify, consolidate, or
+  replace instructions when they retain required behavior and improve precision or
+  context efficiency. Protocol changes must include compatible template, validator,
+  version, and migration updates.
+- **Bring evidence.** Good contributions include a reproducible failure, an ambiguity
+  that causes agents to behave differently, a tested improvement, or a supported
+  domain profile with an explicit verification method.
+- **Keep the project consistent.** When a mechanism changes, update every affected
+  template, validator rule, public claim, lifecycle description, and migration note in
+  the same pull request.
+- **Keep each pull request focused.** Submit one coherent change with its motivation,
+  expected behavior, and verification evidence. Open an issue first when the product
+  boundary or protocol compatibility is uncertain.
 
-**The bootloader grows rather than shrinks.** Improvements add new guidance or clarify
-what is already there, instead of deleting or compressing it, so the reasoning behind
-earlier decisions stays visible to the agents and people who come later. A change that
-tidies the file by cutting it is the most common thing I have to turn down.
-
-**The message from the creator is mine.** Please leave that section alone. Everything
-else in the README is fair game to improve.
-
-Good contributions include a bug with a reproduction, a clarification where two agents
-would read the same passage differently, or a new domain profile that composes with the
-existing ones. Keep a pull request to one coherent change, and open an issue first if
-you are unsure whether something fits.
+The creator message is owner-maintained; please leave it unchanged in pull requests.
 
 ## License
 
