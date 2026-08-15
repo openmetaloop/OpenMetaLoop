@@ -22,22 +22,37 @@ repository.
 
 ## Start
 
-The repository is intentionally compact: `openmetaloop.md` is the complete loop
-bootloader, `banner.png` is the mascot and title banner, and `lifecycle.svg` explains
-how the system works.
+OpenMetaLoop is distributed as a single Markdown file. It requires no package or
+model-specific integration: the coding agent reads the bootloader and installs the
+coordination layer directly into the project repository.
 
-Create a new directory, put [`openmetaloop.md`](openmetaloop.md) inside it, and
-open your coding agent in that directory. Then type:
+Create or open the directory where the project will live, place
+[`openmetaloop.md`](openmetaloop.md) inside it, and start a compatible coding agent in
+that directory. Then enter:
 
 ```text
 Read openmetaloop.md and use it to set up my new project.
 
-Name:  <your project name>
-About: <one sentence on what the project is>
+Name:  <project name>
+About: <one sentence describing the intended outcome>
 ```
 
-That's it. The bootloader sets up the project, starts the harness, and you are ready to
-build.
+The bootloader then:
+
+- inspects the workspace and safely initializes or adopts its Git history;
+- turns the project description into goals, success criteria, and a milestone roadmap;
+- installs repository-backed state, memory, orchestration, verification, and handoff
+  protocols;
+- validates the installation and creates a reversible checkpoint;
+- begins the first task or records the exact information needed to continue.
+
+No conversation history is required after installation. A compatible agent can enter
+a later session, reconcile the repository with its last verified checkpoint, and
+resume by reading the repository's recorded state.
+
+The source repository contains the complete [`openmetaloop.md`](openmetaloop.md)
+bootloader, [`lifecycle.svg`](lifecycle.svg) as a system overview, and
+[`banner.png`](banner.png) for project identity.
 
 ## Safety
 
