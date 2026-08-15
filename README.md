@@ -114,17 +114,6 @@ I wanted one portable file that could turn the repository itself into the durabl
 coordination and memory layer. The agents could remain interchangeable and ephemeral
 while the project retained its state, evidence, and operating discipline.
 
-OpenMetaLoop is the result. It is designed to be provider-neutral and
-repository-native. In early use, I saw a mature project continue for roughly an hour
-before requiring another decision from me. In a separate handoff, a collaborator
-opened the repository on a new device with a different coding agent and resumed by
-prompting it to "continue where you left off." These are early observations, not
-benchmark results, but they motivated me to make the system public.
-
-OpenMetaLoop is distributed as a self-contained Markdown bootloader and released under
-the MIT License. This is the first public version, and I hope others will help test,
-challenge, and improve it.
-
 — [Izhaar Tejani](https://izhaartejani.com/)
 
 ## License
