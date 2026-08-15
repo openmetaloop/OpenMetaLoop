@@ -192,31 +192,6 @@ challenge, and improve it.
 
 — [Izhaar Tejani](https://izhaartejani.com/)
 
-## Contributing
-
-Contributions are welcome. OpenMetaLoop has a deliberately small distribution surface,
-but its implementation should continue to improve as evidence accumulates.
-
-- **Preserve the product boundary.** OpenMetaLoop remains a self-contained Markdown
-  bootloader with supporting documentation and visual assets. It may install multiple
-  inspectable files inside a project, but it should not require a runtime package,
-  hosted service, or proprietary model.
-- **Preserve invariants, not redundant wording.** Changes may clarify, consolidate, or
-  replace instructions when they retain required behavior and improve precision or
-  context efficiency. Protocol changes must include compatible template, validator,
-  version, and migration updates.
-- **Bring evidence.** Good contributions include a reproducible failure, an ambiguity
-  that causes agents to behave differently, a tested improvement, or a supported
-  domain profile with an explicit verification method.
-- **Keep the project consistent.** When a mechanism changes, update every affected
-  template, validator rule, public claim, lifecycle description, and migration note in
-  the same pull request.
-- **Keep each pull request focused.** Submit one coherent change with its motivation,
-  expected behavior, and verification evidence. Open an issue first when the product
-  boundary or protocol compatibility is uncertain.
-
-The creator message is owner-maintained; please leave it unchanged in pull requests.
-
 ## License
 
 OpenMetaLoop, the bootloader and README, is [MIT-licensed](LICENSE): free to use,
