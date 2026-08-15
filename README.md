@@ -27,14 +27,9 @@ inside the target repository.
 
 ## Start
 
-OpenMetaLoop is distributed as a single Markdown file. It requires no package or
-model-specific integration: the coding agent reads the bootloader and installs the
-coordination layer directly into the project repository. Protocol 1.1 requires
-persistent workspace access, local Git, and Python 3 with the standard library.
-
-Create or open the directory where the project will live, place
-[`openmetaloop.md`](openmetaloop.md) inside it, and start any coding agent with file and
-shell access in that directory. Then enter:
+Place [`openmetaloop.md`](openmetaloop.md) in a new or existing project directory and
+open any coding agent there with persistent workspace and shell access. Local Git and
+Python 3 with the standard library are required; GitHub is optional. Then enter:
 
 ```text
 Read openmetaloop.md and use it to set up my new project.
@@ -43,35 +38,15 @@ Name:  <project name>
 About: <one sentence describing the intended outcome>
 ```
 
-The bootloader then:
+The bootloader safely initializes or adopts the Git history, derives goals and a
+milestone roadmap, installs and validates the coordination layer, records the first
+checkpoint, and begins the first task.
 
-- inspects the workspace and safely initializes or adopts its Git history;
-- turns the project description into goals, success criteria, and a milestone roadmap;
-- installs repository-backed state, memory, orchestration, verification, and handoff
-  protocols;
-- validates the installation and creates a reversible checkpoint;
-- begins the first task or records the exact information needed to continue.
-
-Persistence here means durable, resumable project state—not a continuously running
-agent process. The coding agent executes the protocol using the controls available in
-its environment.
-
-Local Git is the continuity mechanism. The bootloader initializes or adopts the
-repository's Git history, validates the installed coordination layer, and records a
-reversible checkpoint. A GitHub repository is optional. For a new workspace, if
-authenticated GitHub access is available and the user has not stated a preference, the
-agent asks once whether to create a private repository and push the checkpoint. GitHub
-provides off-device backup and shared state across devices and collaborators; it does
-not replace the local repository, and nothing is made public without explicit
-approval.
-
-After a successful installation and checkpoint, continuation does not depend on the
-prior chat transcript. Any coding agent with the required repository and tool access
-can enter a later session, reconcile the repository with its last verified checkpoint,
-and resume from the repository's recorded state.
-
-The source repository contains the complete [`openmetaloop.md`](openmetaloop.md)
-bootloader and [`banner.png`](banner.png) for project identity.
+Persistence means durable, resumable project state—not a continuously running agent
+process. Any coding agent with the required repository and tool access can verify the
+recorded state and resume without the prior chat transcript. With approval, setup can
+also create a private GitHub repository for off-device backup and collaboration;
+otherwise, checkpoints remain local. Nothing is made public without explicit approval.
 
 ## Safety
 
