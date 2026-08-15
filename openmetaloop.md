@@ -1,6 +1,6 @@
 # OpenMetaLoop Bootloader
 
-*One file for long-horizon coding across context windows and sessions.*
+*One file to start new long-horizon coding projects across context windows and sessions.*
 
 This file is the complete portable loop bootloader, including the protocol and every
 template it installs.

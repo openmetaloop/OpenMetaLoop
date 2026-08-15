@@ -1,9 +1,9 @@
-# 🐶 OpenMetaLoop: One file for long-horizon coding across context windows and sessions.
+# 🐶 OpenMetaLoop: One file to start new long-horizon coding projects across context windows and sessions.
 
 <p align="center">
   <img
     src="banner.png"
-    alt="OpenMetaLoop: One file for long-horizon coding across context windows and sessions."
+    alt="OpenMetaLoop: One file to start new long-horizon coding projects across context windows and sessions."
     width="100%"
   >
 </p>
