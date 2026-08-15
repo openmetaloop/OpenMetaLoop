@@ -10,31 +10,20 @@
 
 Coding agents are highly capable inside a single context window. OpenMetaLoop turns
 the repository into the persistent coordination and memory layer for otherwise
-ephemeral coding agents. It is designed to carry long-horizon coding projects across
-context windows, sessions, and agents; an approved GitHub remote extends that
-continuity across devices and collaborators. As the repository evolves, any coding
-agent with the required repository and tool access can resume from richer recorded
-context instead of reconstructing the project from chat history, with the aim of
-repeating fewer mistakes and working autonomously for longer stretches as the
-project's memory, judgment, and discipline accumulate.
+ephemeral coding agents.
+
+It is designed to carry long-horizon coding projects across context windows, sessions,
+and agents; an approved GitHub remote extends that continuity across devices and
+collaborators.
+
+As the repository evolves, any coding agent with the required repository and tool
+access can resume from richer recorded context instead of reconstructing the project
+from chat history, with the aim of repeating fewer mistakes and working autonomously
+for longer stretches as the project's memory, judgment, and discipline accumulate.
 
 OpenMetaLoop is a one-file distribution, not a one-file runtime. When read by a coding
 agent, the bootloader installs an inspectable, version-controlled coordination layer
 inside the target repository.
-
-Persistence here means durable, resumable project state—not a continuously running
-agent process. The coding agent executes the protocol using the controls available in
-its environment.
-
-Local Git is the continuity mechanism. The bootloader initializes or adopts the
-repository's Git history, validates the installed coordination layer, and records a
-reversible checkpoint. A GitHub repository is optional. For a new workspace, if
-authenticated GitHub access is available and the user has not stated a preference, the
-agent asks once whether to create a private repository and push the checkpoint. GitHub
-provides off-device backup and shared state across devices and collaborators; it does
-not replace the local repository, and nothing is made public without explicit
-approval. Together, the recorded state and Git history allow a later session to resume
-from an inspectable checkpoint rather than a prior chat transcript.
 
 ## Start
 
@@ -62,6 +51,19 @@ The bootloader then:
   protocols;
 - validates the installation and creates a reversible checkpoint;
 - begins the first task or records the exact information needed to continue.
+
+Persistence here means durable, resumable project state—not a continuously running
+agent process. The coding agent executes the protocol using the controls available in
+its environment.
+
+Local Git is the continuity mechanism. The bootloader initializes or adopts the
+repository's Git history, validates the installed coordination layer, and records a
+reversible checkpoint. A GitHub repository is optional. For a new workspace, if
+authenticated GitHub access is available and the user has not stated a preference, the
+agent asks once whether to create a private repository and push the checkpoint. GitHub
+provides off-device backup and shared state across devices and collaborators; it does
+not replace the local repository, and nothing is made public without explicit
+approval.
 
 After a successful installation and checkpoint, continuation does not depend on the
 prior chat transcript. Any coding agent with the required repository and tool access
