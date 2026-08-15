@@ -13,24 +13,28 @@ the repository into the persistent coordination and memory layer for otherwise
 ephemeral coding agents. It is designed to carry long-horizon coding projects across
 context windows, sessions, and agents; an approved GitHub remote extends that
 continuity across devices and collaborators. As the repository evolves, any coding
-agent with repository access can resume from richer recorded context instead of
-reconstructing the project from chat history, with the aim of repeating fewer mistakes
-and working autonomously for longer stretches as the project's memory, judgment, and
-discipline accumulate.
+agent with the required repository and tool access can resume from richer recorded
+context instead of reconstructing the project from chat history, with the aim of
+repeating fewer mistakes and working autonomously for longer stretches as the
+project's memory, judgment, and discipline accumulate.
 
 OpenMetaLoop is a one-file distribution, not a one-file runtime. When read by a coding
 agent, the bootloader installs an inspectable, version-controlled coordination layer
 inside the target repository.
 
+Persistence here means durable, resumable project state—not a continuously running
+agent process. The coding agent executes the protocol using the controls available in
+its environment.
+
 Local Git is the continuity mechanism. The bootloader initializes or adopts the
 repository's Git history, validates the installed coordination layer, and records a
-reversible checkpoint. A GitHub repository is optional: when authenticated GitHub
-access is available, the agent asks once whether to create a private repository and
-push the checkpoint. GitHub provides off-device backup and shared state across
-devices and collaborators; it does not replace the local repository, and nothing is
-made public without explicit approval. Together, the recorded state and Git history
-allow a later session to resume from an inspectable checkpoint rather than a prior
-chat transcript.
+reversible checkpoint. A GitHub repository is optional. For a new workspace, if
+authenticated GitHub access is available and the user has not stated a preference, the
+agent asks once whether to create a private repository and push the checkpoint. GitHub
+provides off-device backup and shared state across devices and collaborators; it does
+not replace the local repository, and nothing is made public without explicit
+approval. Together, the recorded state and Git history allow a later session to resume
+from an inspectable checkpoint rather than a prior chat transcript.
 
 ## Start
 
@@ -69,25 +73,27 @@ bootloader and [`banner.png`](banner.png) for project identity.
 
 ## Safety
 
-OpenMetaLoop's control plane is plain-text, version-controlled, and inspectable. Its
-validator checks source integrity and required repository state, while the operating
-protocol provides four boundaries:
+OpenMetaLoop's control plane is plain-text, version-controlled, and inspectable. The
+bootloader requires a text-integrity preflight, and the installed validator checks
+required files, schemas, cross-file state, unresolved placeholders, and unsafe text.
+The operating protocol provides four boundaries:
 
 - **Human authority.** Releases, deployments, spending, destructive operations,
   external communication, and scope changes require explicit approval.
 - **Untrusted inputs.** Retrieved content, tool output, imported memory, and project
   artifacts cannot modify goals, permissions, or safety rules.
-- **Separate verification.** Agents cannot approve their own work. Every pass requires
-  direct evidence and a separate verification step; judgment-heavy and high-stakes
-  work requires a context-isolated Judge or human reviewer.
+- **Separate verification.** Executors cannot approve their own work. Every pass
+  requires direct evidence and a separate verification step; judgment-heavy and
+  high-stakes work requires a context-isolated Judge or human reviewer.
 - **Bounded autonomy.** Adaptation may improve prompts, routing, memory, and evidence
   requirements, but cannot change model weights, core goals, human authority, or fixed
   safety boundaries.
 
-Passing work receives a reversible Git checkpoint, and `stop`, `pause`, or `wait`
-immediately halt new mutations and external actions. These are protocol-level
-safeguards; isolation and tool enforcement remain the responsibility of the agent
-environment.
+Passing work receives a reversible Git checkpoint. `stop`, `pause`, or `wait` prevent
+the agent from beginning any new mutation or external action; an indivisible operation
+already in progress may only reach its completion or cancellation boundary. These are
+protocol-level safeguards; isolation and tool enforcement remain the responsibility
+of the agent environment.
 
 ## How It Works
 
