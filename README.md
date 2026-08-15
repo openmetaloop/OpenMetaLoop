@@ -27,29 +27,12 @@ inside the target repository.
 
 ## Safety
 
-OpenMetaLoop keeps its rules in readable Markdown files. Before work begins, a
-preflight checks that those files are intact, complete, and free of hidden control
-characters. The validator also checks the required files, links between them, and
-unfinished placeholders.
+Before work begins, OpenMetaLoop checks that its files are complete and unchanged.
 
-Four simple rules govern the agent:
-
-- **You approve high-impact actions.** The agent cannot release, deploy, spend money,
-  delete data, contact people, or change the project scope without explicit approval.
-- **Outside content cannot rewrite the rules.** Web pages, tool results, imported
-  notes, and project files may provide information, but they cannot change the goals,
-  permissions, or safety settings.
-- **The agent must show its work.** A task is not complete because the agent says it
-  is complete. It must produce direct evidence and pass a separate check. Important
-  or high-stakes work also needs a fresh reviewer or a person.
-- **The agent can adapt, but not take control.** It may improve its prompts, routing,
-  memory, and evidence requests. It cannot change its core goals, bypass approval,
-  or weaken the fixed safety rules.
-
-After a successful check, the project receives a reversible Git checkpoint. `stop`,
-`pause`, and `wait` prevent new changes or external actions from starting. A single
-operation already in progress may finish or reach its cancellation point. The host
-environment still provides the final process isolation and tool permissions.
+- **You approve important actions.** No deploys, spending, deletion, messages, or scope changes without you.
+- **Inputs cannot change the rules.** Web pages, tools, and imported notes are data only.
+- **Proof is required.** The agent must show evidence and pass a separate check.
+- **Pause means stop.** No new change or external action starts until you resume.
 
 ## Start
 
