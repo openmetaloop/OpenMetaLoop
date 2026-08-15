@@ -25,29 +25,6 @@ OpenMetaLoop is a one-file distribution, not a one-file runtime. When read by a 
 agent, the bootloader installs an inspectable, version-controlled coordination layer
 inside the target repository.
 
-## Start
-
-Place [`openmetaloop.md`](openmetaloop.md) in a new or existing project directory and
-open any coding agent there with persistent workspace and shell access. Local Git and
-Python 3 with the standard library are required; GitHub is optional. Then enter:
-
-```text
-Read openmetaloop.md and use it to set up my new project.
-
-Name:  <project name>
-About: <one sentence describing the intended outcome>
-```
-
-The bootloader safely initializes or adopts the Git history, derives goals and a
-milestone roadmap, installs and validates the coordination layer, records the first
-checkpoint, and begins the first task.
-
-Persistence means durable, resumable project state—not a continuously running agent
-process. Any coding agent with the required repository and tool access can verify the
-recorded state and resume without the prior chat transcript. With approval, setup can
-also create a private GitHub repository for off-device backup and collaboration;
-otherwise, checkpoints remain local. Nothing is made public without explicit approval.
-
 ## Safety
 
 OpenMetaLoop's control plane uses plain-text Markdown, so it can be read, searched,
@@ -73,6 +50,29 @@ the agent from beginning any new mutation or external action; an indivisible ope
 already in progress may only reach its completion or cancellation boundary. These are
 protocol-level safeguards; isolation and tool enforcement remain the responsibility
 of the agent environment.
+
+## Start
+
+Place [`openmetaloop.md`](openmetaloop.md) in a new or existing project directory and
+open any coding agent there with persistent workspace and shell access. Local Git and
+Python 3 with the standard library are required; GitHub is optional. Then enter:
+
+```text
+Read openmetaloop.md and use it to set up my new project.
+
+Name:  <project name>
+About: <one sentence describing the intended outcome>
+```
+
+The bootloader safely initializes or adopts the Git history, derives goals and a
+milestone roadmap, installs and validates the coordination layer, records the first
+checkpoint, and begins the first task.
+
+Persistence means durable, resumable project state—not a continuously running agent
+process. Any coding agent with the required repository and tool access can verify the
+recorded state and resume without the prior chat transcript. With approval, setup can
+also create a private GitHub repository for off-device backup and collaboration;
+otherwise, checkpoints remain local. Nothing is made public without explicit approval.
 
 ## How It Works
 
