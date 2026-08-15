@@ -11,15 +11,26 @@
 Coding agents are highly capable inside a single context window. OpenMetaLoop turns
 the repository into the persistent coordination and memory layer for otherwise
 ephemeral coding agents. It is designed to carry long-horizon coding projects across
-context windows, sessions, agents, and collaborators on GitHub. As the repository
-evolves, any coding agent with repository access can resume from richer recorded
-context instead of reconstructing the project from chat history, with the aim of
-repeating fewer mistakes and working autonomously for longer stretches as the
-project's memory, judgment, and discipline accumulate.
+context windows, sessions, and agents; an approved GitHub remote extends that
+continuity across devices and collaborators. As the repository evolves, any coding
+agent with repository access can resume from richer recorded context instead of
+reconstructing the project from chat history, with the aim of repeating fewer mistakes
+and working autonomously for longer stretches as the project's memory, judgment, and
+discipline accumulate.
 
-OpenMetaLoop is a one-file distribution, not a one-file runtime. The bootloader
-expands into an inspectable, version-controlled coordination layer inside the target
-repository.
+OpenMetaLoop is a one-file distribution, not a one-file runtime. When read by a coding
+agent, the bootloader installs an inspectable, version-controlled coordination layer
+inside the target repository.
+
+Local Git is the continuity mechanism. The bootloader initializes or adopts the
+repository's Git history, validates the installed coordination layer, and records a
+reversible checkpoint. A GitHub repository is optional: when authenticated GitHub
+access is available, the agent asks once whether to create a private repository and
+push the checkpoint. GitHub provides off-device backup and shared state across
+devices and collaborators; it does not replace the local repository, and nothing is
+made public without explicit approval. Together, the recorded state and Git history
+allow a later session to resume from an inspectable checkpoint rather than a prior
+chat transcript.
 
 ## Start
 
@@ -82,7 +93,8 @@ environment.
 
 ```text
 BOOTSTRAP ONCE
-Bootloader → agentic repository
+Bootloader → agentic repository → local Git checkpoint
+                                    └→ optional private GitHub backup
 
 REPEATING LOOP
 Plan → Execute → Verify → Learn + checkpoint
@@ -90,7 +102,7 @@ Plan → Execute → Verify → Learn + checkpoint
   └──────── continue or resume ───────┘
 
 PERSISTENT REPOSITORY STATE
-Goals · state · memory · evidence
+Goals · state · memory · evidence · Git history
 ```
 
 OpenMetaLoop separates transient model execution from durable project state. Models
