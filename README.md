@@ -73,10 +73,12 @@ bootloader and [`banner.png`](banner.png) for project identity.
 
 ## Safety
 
-OpenMetaLoop's control plane is plain-text, version-controlled, and inspectable. The
-bootloader requires a text-integrity preflight, and the installed validator checks
-required files, schemas, cross-file state, unresolved placeholders, and unsafe text.
-The operating protocol provides four boundaries:
+OpenMetaLoop's control plane uses plain-text Markdown, so it can be read, searched,
+diffed, and reviewed directly. Markdown alone does not prevent hidden Unicode
+characters: the bootloader requires a text-integrity preflight, and the installed
+validator checks required files, schemas, cross-file state, unresolved placeholders,
+and unsafe invisible or control characters. The operating protocol provides four
+boundaries:
 
 - **Human authority.** Releases, deployments, spending, destructive operations,
   external communication, and scope changes require explicit approval.
