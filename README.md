@@ -53,9 +53,9 @@ of the agent environment.
 
 ## Start
 
-Place [`openmetaloop.md`](openmetaloop.md) in a new or existing project directory and
-open any coding agent there with persistent workspace and shell access. Local Git and
-Python 3 with the standard library are required; GitHub is optional. Then enter:
+Put [`openmetaloop.md`](openmetaloop.md) in your project folder and open any coding
+agent in that folder. The agent must be able to read and write files and run commands.
+Git and Python 3 must be installed; GitHub is optional. Then enter:
 
 ```text
 Read openmetaloop.md and use it to set up my new project.
@@ -64,15 +64,14 @@ Name:  <project name>
 About: <one sentence describing the intended outcome>
 ```
 
-The bootloader safely initializes or adopts the Git history, derives goals and a
-milestone roadmap, installs and validates the coordination layer, records the first
-checkpoint, and begins the first task.
+That's it. OpenMetaLoop creates the project's goals, plan, memory, and safety rules. It
+saves the starting point in Git and begins the first task.
 
-Persistence means durable, resumable project state—not a continuously running agent
-process. Any coding agent with the required repository and tool access can verify the
-recorded state and resume without the prior chat transcript. With approval, setup can
-also create a private GitHub repository for off-device backup and collaboration;
-otherwise, checkpoints remain local. Nothing is made public without explicit approval.
+When you come back later, open any coding agent in the same project folder and tell it
+to `continue`. The agent reads the saved project files instead of relying on the old
+chat. With permission, OpenMetaLoop can also create a private GitHub repository so the
+project can continue across devices and collaborators. GitHub is never required, and
+nothing is made public without explicit approval.
 
 ## How It Works
 
