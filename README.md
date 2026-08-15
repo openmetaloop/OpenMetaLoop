@@ -84,7 +84,7 @@ environment.
 <p align="center">
   <img
     src="lifecycle.svg"
-    alt="The six OpenMetaLoop lifecycle phases arranged from left to right."
+    alt="A bootloader creates an agentic repository, then work repeats through planning, execution, verification, learning, and checkpointing while repository state persists."
     width="100%"
   >
 </p>

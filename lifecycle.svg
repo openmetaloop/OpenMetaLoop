@@ -1,79 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="230" viewBox="0 0 1600 230" role="img" aria-labelledby="title desc">
-  <metadata>How the OpenMetaLoop lifecycle works</metadata>
-  <title id="title">OpenMetaLoop lifecycle phases</title>
-  <desc id="desc">Six phases arranged from left to right: Define and preflight; Bootstrap and validate; Orient and plan each run; Execute, challenge, and judge; Synthesize, learn, and checkpoint; Continue, recover, or close.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <metadata>High-level OpenMetaLoop lifecycle</metadata>
+  <title id="title">How OpenMetaLoop works</title>
+  <desc id="desc">A one-time bootloader creates an agentic repository. Work then repeats through plan, execute, verify, and learn plus checkpoint. The repository retains goals, state, memory, and evidence across agents, context windows, and sessions.</desc>
 
   <defs>
-    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
-      <path d="M0 0L9 4.5L0 9Z" fill="#6b5a50"/>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6b5a50"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#f6911e"/>
     </marker>
     <style>
-      text { font-family: Helvetica, Arial, sans-serif; }
-      .phase { font-family: "Courier New", Courier, monospace; font-size: 13px; font-weight: 600; letter-spacing: 1.2px; fill: #e67704; }
-      .name { font-family: Helvetica, Arial, sans-serif; font-size: 19px; font-weight: 700; fill: #0a0908; }
+      text { font-family: Helvetica, Arial, sans-serif; fill: #0a0908; }
+      .eyebrow { font-family: "Courier New", Courier, monospace; font-size: 16px; font-weight: 700; letter-spacing: 1.6px; fill: #e67704; }
+      .title { font-size: 30px; font-weight: 750; }
+      .subtitle { font-size: 18px; fill: #6b5a50; }
+      .step { font-size: 23px; font-weight: 700; }
+      .foundation { font-size: 22px; font-weight: 650; }
     </style>
   </defs>
 
-  <rect width="1600" height="230" fill="#ffffff"/>
+  <rect width="1200" height="520" fill="#ffffff"/>
 
-  <g>
-    <rect x="45" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
-    <rect x="45" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
-    <text x="155" y="82" text-anchor="middle" class="phase">PHASE 1</text>
-    <text x="155" y="118" text-anchor="middle" class="name">Define and</text>
-    <text x="155" y="144" text-anchor="middle" class="name">preflight</text>
-  </g>
+  <text x="600" y="44" text-anchor="middle" class="title">How OpenMetaLoop works</text>
+  <text x="600" y="73" text-anchor="middle" class="subtitle">Agents change. The repository remembers.</text>
 
-  <line x1="275" y1="115" x2="295" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="60" y="120" class="eyebrow">BOOTSTRAP ONCE</text>
 
-  <g>
-    <rect x="305" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
-    <rect x="305" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
-    <text x="415" y="82" text-anchor="middle" class="phase">PHASE 2</text>
-    <text x="415" y="118" text-anchor="middle" class="name">Bootstrap and</text>
-    <text x="415" y="144" text-anchor="middle" class="name">validate</text>
-  </g>
+  <rect x="300" y="96" width="220" height="78" rx="10" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+  <text x="410" y="143" text-anchor="middle" class="step">Bootloader</text>
 
-  <line x1="535" y1="115" x2="555" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="542" y1="135" x2="638" y2="135" stroke="#6b5a50" stroke-width="2.5" marker-end="url(#arrow)"/>
 
-  <g>
-    <rect x="565" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
-    <rect x="565" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
-    <text x="675" y="82" text-anchor="middle" class="phase">PHASE 3</text>
-    <text x="675" y="118" text-anchor="middle" class="name">Orient and plan</text>
-    <text x="675" y="144" text-anchor="middle" class="name">each run</text>
-  </g>
+  <rect x="660" y="96" width="260" height="78" rx="10" fill="#fff0df" stroke="#f6911e" stroke-width="2"/>
+  <text x="790" y="143" text-anchor="middle" class="step">Agentic repository</text>
 
-  <line x1="795" y1="115" x2="815" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="60" y="246" class="eyebrow">REPEATING LOOP</text>
 
-  <g>
-    <rect x="825" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
-    <rect x="825" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
-    <text x="935" y="82" text-anchor="middle" class="phase">PHASE 4</text>
-    <text x="935" y="118" text-anchor="middle" class="name">Execute,</text>
-    <text x="935" y="144" text-anchor="middle" class="name">challenge, and</text>
-    <text x="935" y="170" text-anchor="middle" class="name">judge</text>
-  </g>
+  <rect x="70" y="272" width="220" height="82" rx="10" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+  <text x="180" y="321" text-anchor="middle" class="step">Plan</text>
 
-  <line x1="1055" y1="115" x2="1075" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="306" y1="313" x2="342" y2="313" stroke="#6b5a50" stroke-width="2.5" marker-end="url(#arrow)"/>
 
-  <g>
-    <rect x="1085" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
-    <rect x="1085" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
-    <text x="1195" y="82" text-anchor="middle" class="phase">PHASE 5</text>
-    <text x="1195" y="118" text-anchor="middle" class="name">Synthesize,</text>
-    <text x="1195" y="144" text-anchor="middle" class="name">learn, and</text>
-    <text x="1195" y="170" text-anchor="middle" class="name">checkpoint</text>
-  </g>
+  <rect x="360" y="272" width="220" height="82" rx="10" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+  <text x="470" y="321" text-anchor="middle" class="step">Execute</text>
 
-  <line x1="1315" y1="115" x2="1335" y2="115" stroke="#6b5a50" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="596" y1="313" x2="632" y2="313" stroke="#6b5a50" stroke-width="2.5" marker-end="url(#arrow)"/>
 
-  <g>
-    <rect x="1345" y="45" width="220" height="140" rx="8" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
-    <rect x="1345" y="45" width="220" height="7" rx="3.5" fill="#f6911e"/>
-    <text x="1455" y="82" text-anchor="middle" class="phase">PHASE 6</text>
-    <text x="1455" y="118" text-anchor="middle" class="name">Continue,</text>
-    <text x="1455" y="144" text-anchor="middle" class="name">recover, or</text>
-    <text x="1455" y="170" text-anchor="middle" class="name">close</text>
-  </g>
+  <rect x="650" y="272" width="220" height="82" rx="10" fill="#fdf5f0" stroke="#6b5a50" stroke-width="1.5"/>
+  <text x="760" y="321" text-anchor="middle" class="step">Verify</text>
+
+  <line x1="886" y1="313" x2="922" y2="313" stroke="#6b5a50" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <rect x="940" y="272" width="220" height="82" rx="10" fill="#fff0df" stroke="#f6911e" stroke-width="2"/>
+  <text x="1050" y="307" text-anchor="middle" class="step">Learn +</text>
+  <text x="1050" y="334" text-anchor="middle" class="step">checkpoint</text>
+
+  <path d="M1050 370C1050 424 180 424 180 370" fill="none" stroke="#f6911e" stroke-width="3" marker-end="url(#arrow-orange)"/>
+  <text x="615" y="392" text-anchor="middle" class="eyebrow">CONTINUE OR RESUME</text>
+
+  <rect x="60" y="454" width="1100" height="48" rx="9" fill="#f6911e"/>
+  <text x="610" y="484" text-anchor="middle" class="foundation">Persistent repository state: goals · state · memory · evidence</text>
 </svg>
