@@ -75,7 +75,7 @@ immediately halt new mutations and external actions. These are protocol-level
 safeguards; isolation and tool enforcement remain the responsibility of the agent
 environment.
 
-## Core Features
+## How It Works
 
 <p align="center">
   <img
@@ -85,87 +85,65 @@ environment.
   >
 </p>
 
-The bootloader has six sequential phases. The lifecycle tables describe what happens
-and in what order. The module map that follows describes the persistent control system
-that operates across those phases.
+OpenMetaLoop separates transient model execution from durable project state. Models
+supply intelligence for the current task; the repository supplies continuity,
+verification, adaptation, and governance across tasks, agents, and sessions. Model
+weights do not change.
 
-### Phase 1 — Define and preflight
+### Bootstrap once
 
-| Step | Action | Responsibility | Output |
-|---:|---|---|---|
-| 1 | **Refine the project** | Derive the workspace name, mission, core goals, success evidence, constraints, inputs, non-goals, open decisions, and domain profile from the user's project and scope. | Reversible project definition |
-| 2 | **Select the mode** | Choose `setup` for an uninitialized harness or `continue` for an installed harness. Setup automatically creates a new workspace or safely adopts an existing one, then starts the first task. Continue reconciles the installed harness with repository reality and resumes from its recorded position. | Operating mode |
-| 3 | **Run preflight** | Inspect the target path, repository state, tools, Git, Python, model capabilities, domain verification, secrets, remote options, global-memory permission, budgets, and authority limits. | Capability and authority record |
+During `setup`, the bootloader creates a new workspace or safely adopts an existing
+one:
 
-### Phase 2 — Bootstrap and validate
+```text
+project + scope
+→ define and preflight
+→ create or adopt the workspace
+→ install and configure the control plane
+→ derive goals, milestones, and the task queue
+→ validate
+→ create the initial checkpoint
+```
 
-| Step | Action | Responsibility | Output |
-|---:|---|---|---|
-| 4 | **Create or adopt the workspace** | Initialize local Git history or safely reconcile an existing workspace without nesting repositories or overwriting live work. | Versioned workspace |
-| 5 | **Install the harness** | Write the mandatory session, orchestration, attention, goal, state, memory, trust, logging, setup, and helper modules embedded in the bootloader. | Installed control plane |
-| 6 | **Configure the control plane** | Populate the manifest, model mappings, role permissions, approved scope, integration policy, and generated `architecture.md` using the project definition and preflight evidence. | Configured manifest and architecture |
-| 7 | **Create goals and domain artifacts** | Fill the core goals, milestone roadmap, task queue, setup instructions, project README, domain documents, toolchain, verification method, and project license. Software projects also receive tests and CI. | Execution-ready project |
-| 8 | **Validate the installation** | Run the built-in validator and block the bootstrap checkpoint if a required file, critical value, or protocol version is invalid. | Validation evidence |
-| 9 | **Configure checkpointing** | Use local Git by default and add an approved private remote only when explicitly requested or authorized. | Recorded checkpoint backend |
-| 10 | **Create the bootstrap checkpoint** | Commit the validated initial state and push only when an approved remote already exists. | First reversible checkpoint |
+### Run continuously
 
-### Phase 3 — Orient and plan each run
+Every selected task then moves through the same evidence-gated loop:
 
-| Step | Action | Responsibility | Output |
-|---:|---|---|---|
-| 11 | **Orient** | Read the session pointer chain and reconcile Git, architecture, goals, state, roadmap, queue, and the last verified checkpoint with reality. | Reconciled run state |
-| 12 | **Select** | Choose the highest-priority Ready task whose dependencies are complete and which advances a named milestone and core goal. | Active task |
-| 13 | **Plan** | Decompose the task into non-overlapping raw task specifications with ownership, dependencies, stakes, budgets, evidence requirements, and a predicted outcome. | Raw task specifications |
-| 14 | **Attend** | Before every model role, build a minimal provenance-preserving context manifest containing invariants, authority, relevant evidence, targeted memory, and disconfirming evidence. | Role-specific context |
+```text
+orient and reconcile repository state
+→ select and plan
+→ route bounded context and refine execution packets
+→ execute
+→ challenge when high-stakes
+→ collect evidence, judge, and revise when required
+→ synthesize passing work
+→ learn from the judged outcome
+→ checkpoint and record the next handoff
+→ consolidate memory when due
+→ continue or yield
+```
 
-### Phase 4 — Execute, challenge, and judge
+Context routing is a mandatory gate before every model role, not a one-time phase. An
+agent entering a new session follows the repository's startup pointer chain, reconciles
+the recorded handoff with canonical state and the checkpoint backend, and resumes only
+from verified reality.
 
-| Step | Action | Responsibility | Output |
-|---:|---|---|---|
-| 15 | **Refine** | Compile each raw task specification into a self-contained execution packet without changing its intent, scope, or acceptance criteria. | Execution packets |
-| 16 | **Execute** | Dispatch bounded work to Flash Executors, in parallel only when mutable ownership and unresolved inputs do not overlap. | Artifacts, checks, and result specifications |
-| 17 | **Challenge when high-stakes** | Use an independent Refiner-tier context to try to falsify high-stakes results. Normal-stakes work skips this step. | Adversarial findings |
-| 18 | **Collect** | Aggregate specifications, packets, results, direct evidence, and Challenger findings without summarizing away failures. | Complete judgment bundle |
-| 19 | **Judge** | Use a fresh Frontier context to evaluate goal alignment, acceptance criteria, evidence, regressions, side effects, and safety. | `pass`, `revise`, `blocked`, or `escalate` |
-| 20 | **Revise when required** | Convert Judge findings into the smallest correction and repeat Refine → Execute → Challenge → Judge. Stop after three failed cycles on the same criterion. | Passing result or explicit terminal state |
+| Layer | Repository source of truth |
+|---|---|
+| **Direction** | `goals/core_goals.md`, `goals/task_roadmap.md`, and `goals/todo.md` |
+| **Configuration and architecture** | `harness_manifest.md` and `architecture.md` |
+| **Active coordination and handoff** | `memory/state.md` and root `roadmap.md` |
+| **Execution and context routing** | `orchestration/loop.md` and `attention/context_router.md` |
+| **Durable decisions and adaptation** | `memory/long_term.md`, `memory/meta_learning.md`, and `memory/trust_ledger.md` |
+| **Audit and recovery** | append-only `logs/` and Git or the configured checkpoint backend |
 
-### Phase 5 — Synthesize, learn, and checkpoint
+No artifact is integrated unless its required criteria are proven. Every judged run
+records evidence and learning: passing work creates an artifact checkpoint, while a
+terminal non-passing run creates only a control-state checkpoint containing the log,
+truthful status, blocker, and recovery pointer.
 
-| Step | Action | Responsibility | Output |
-|---:|---|---|---|
-| 21 | **Synthesize and audit** | Integrate only passing units, resolve conflicts, update dependent work, and audit milestone or mission evidence when completion may have been reached. | Integrated passing result |
-| 22 | **Meta-learn** | After every judged run, diagnose the causal source of the outcome, score eligible facts and process lessons, update memory and category-specific trust, and evaluate portable lessons. Model weights never change. | Learning, memory, and trust updates |
-| 23 | **Checkpoint and integrate** | Write the append-only run log; synchronize state, queue, architecture, domain documents, and the exact roadmap handoff; then create the reversible commit or equivalent checkpoint. Approved software remotes may use branches, CI, pull requests, merges, and verified pushes. | Auditable checkpoint |
-| 24 | **Clean and consolidate memory when due** | At milestone boundaries or roughly every 20 runs, apply a surprise-and-importance cleaner that promotes important and surprising information, routes important but expected facts to canonical project files, keeps surprising but low-value observations only in short-term evidence, removes unimportant noise, decays stale entries, enforces active-memory caps, and archives anything load-bearing before removal. Then reconcile contradictions, review tuning evidence, re-evaluate the roadmap, and exchange only authorized redacted process lessons with cross-project memory. | Bounded, consolidated operating state |
-
-### Phase 6 — Continue, recover, or close
-
-| Step | Action | Responsibility | Output |
-|---:|---|---|---|
-| 25 | **Continue or yield** | Start the next Ready task when progress, budgets, tools, and authority allow; otherwise return the exact blocker, decision, or next action. | Next run or explicit yield |
-| 26 | **Recover an interruption** | Inspect Git and active work, preserve valid partial artifacts, reconcile state and the roadmap handoff, and resume only from verified reality. | Safe continuation point |
-| 27 | **Control or close the session** | `stop`, `pause`, and `wait` halt without authorizing commits, merges, or pushes. `end session` freezes new work, reconciles and validates every module, records learning and the resume point, checkpoints passing work, verifies any approved remote backup, and returns a receipt. | Halted state or closeout receipt |
-
-## Generated Control Modules
-
-These systems are mutually exclusive by responsibility and collectively cover every
-mandatory module embedded in the bootloader. Domain artifacts are generated only when
-the selected project profile requires them.
-
-| System | Generated files or mechanism | Responsibility |
-|---|---|---|
-| **Session entry** | `bootloader.md`, `AGENTS.md`, `CLAUDE.md` | Define startup order, permanent operating rules, interruption recovery, and session closeout across agent providers. |
-| **Configuration and permissions** | `harness_manifest.md` | Record protocol version, mode, domain, capabilities, model qualification, role permissions, approved external scope, integration policy, checkpoint backend, and migration history. |
-| **Authority and safety** | Normative invariants, instruction provenance, core-goal autonomy envelope, and fixed loop boundaries | Keep public release, production deployment, spending, access changes, destructive real-data operations, outbound communication, and scope expansion under explicit human authority. |
-| **Current architecture** | `architecture.md` | Describe the project boundary, implemented components, interfaces, state ownership, adaptation contract, authority, and checkpoint topology after scope is known. |
-| **Goals and work planning** | `goals/core_goals.md`, `goals/task_roadmap.md`, `goals/todo.md` | Own the project constitution, outcome milestones, dependencies, atomic work, and durable task status. |
-| **Orchestration contracts** | `orchestration/loop.md` | Define model roles, task/result/judgment schemas, revision limits, evidence profiles, budgets, integration policy, and the canonical run sequence. |
-| **Attention and provenance** | `attention/context_router.md` | Route minimal decision-relevant context, preserve instruction provenance, filter untrusted content, and reserve disconfirming evidence. |
-| **Live continuity** | `memory/state.md`, root `roadmap.md` | Record the active run, blockers, last checkpoint, current position, and exact cross-session continuation instruction. |
-| **Memory and trust** | `memory/surprise_gate.md`, `memory/short_term.md`, `memory/long_term.md`, `memory/meta_learning.md`, `memory/trust_ledger.md` | Separate current context, durable facts, process learning, surprise-and-importance cleaning, bounded retention and decay, lesson reuse, and category-specific autonomy. |
-| **Audit and recovery** | `logs/README.md`, append-only run logs, Git or another approved checkpoint backend | Preserve evidence, verdicts, learning, checkpoint identity, and rollback or recovery paths. |
-| **Setup and automation** | `setup.md`, `scripts/agent_memory.py`, conditional `.github/workflows/ci.yml` | Validate the harness, manage run IDs, logs, state, bounded memory cleaning, trust events, global-memory exchange, setup, and automated verification. |
-| **Domain deliverables** | Project `README.md`, `LICENSE`, and conditional `docs/BRIEF.md`, `docs/OUTLINE.md`, `docs/OPERATING_BRIEF.md`, `docs/PRD.md`, `docs/ROADMAP.md`, or domain tests | Create only the documentation, deliverables, verification, and licensing required by the selected domain profile. |
+The complete normative protocol and every generated file template are contained in
+[`openmetaloop.md`](openmetaloop.md).
 
 ## A Message from the Creator
 
