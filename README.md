@@ -105,15 +105,10 @@ The complete rules and generated file templates are in
 
 ## A Message from the Creator
 
-I've worked with learning systems for more than a decade, since the ImageNet and DQN
-era, and with multimodal and agentic systems as those fields developed. It's amazing
-to see how far the community has come. The way I work with AI today is what I dreamed
-of a decade ago.
-
+I've worked with deep learning systems for more than a decade, since the CNN and DQN era.
 When I began using coding agents intensively, I kept encountering the same limitation:
-an agent could make impressive progress inside one context window, but goals,
-decisions, operating lessons, and the exact continuation point were easily lost across
-sessions.
+an agent could make impressive progress inside one context window, but goals, decisions,
+operating lessons, and the exact continuation point were easily lost across sessions.
 
 I wanted one portable file that could turn the repository itself into the durable
 coordination and memory layer. The agents could remain interchangeable and ephemeral
