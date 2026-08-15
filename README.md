@@ -8,19 +8,17 @@
   >
 </p>
 
-Coding agents are highly capable inside a single context window. OpenMetaLoop gives
-them one portable file for carrying a long-horizon coding project across context
-windows and sessions.
+Coding agents are highly capable inside a single context window. **OpenMetaLoop turns
+the repository into the persistent coordination and memory layer for otherwise
+ephemeral coding agents. This allows you to complete long-horizon coding projects
+across context windows, sessions, agents, and collaborators on GitHub.** As the
+repository evolves, any compatible coding agent can resume with richer context, repeat
+fewer mistakes, and work autonomously for longer stretches because the project's
+memory, judgment, and discipline compound over time.
 
-The file bootstraps the goals, memory, planning, verification, and handoff structure a
-coding agent needs to keep executing a project from 0 to 1 with minimal human
-intervention and efficient use of context.
-
-You will be able to direct a persistent engineering operation whose memory, judgment,
-and discipline compound with the project. As the project accumulates verified
-decisions, operating lessons, and category-specific trust, any compatible coding agent
-can resume with more context, repeat fewer mistakes, and work autonomously for longer
-stretches.
+OpenMetaLoop is a one-file distribution, not a one-file runtime. The bootloader
+expands into an inspectable, version-controlled coordination layer inside the target
+repository.
 
 ## Start
 
