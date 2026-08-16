@@ -9,7 +9,7 @@
 </p>
 
 Coding agents have recently become highly capable. 
-However, when operating across multiple context sessions and collaborators, they can often fail to understand critical context.
+However, when operating across multiple context sessions and collaborators, they often fail to understand critical context.
 OpenMetaLoop turns the repository into the persistent coordination and memory layer for otherwise ephemeral coding agent projects.
 
 It is designed to carry long-horizon coding projects across context windows, sessions,
