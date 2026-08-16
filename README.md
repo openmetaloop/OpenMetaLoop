@@ -8,22 +8,13 @@
   >
 </p>
 
-Coding agents are highly capable inside a single context window. OpenMetaLoop turns
-the repository into the persistent coordination and memory layer for otherwise
-ephemeral coding agents.
+Coding agents have recently become highly capable. 
+However, when operating across multiple context sessions and collaborators, they can often fail to understand critical context.
+OpenMetaLoop turns the repository into the persistent coordination and memory layer for otherwise ephemeral coding agent projects.
 
 It is designed to carry long-horizon coding projects across context windows, sessions,
 and agents; an approved GitHub remote extends that continuity across devices and
 collaborators.
-
-As the repository evolves, any coding agent with the required repository and tool
-access can resume from richer recorded context instead of reconstructing the project
-from chat history, with the aim of repeating fewer mistakes and working autonomously
-for longer stretches as the project's memory, judgment, and discipline accumulate.
-
-OpenMetaLoop is a one-file distribution, not a one-file runtime. When read by a coding
-agent, the bootloader installs an inspectable, version-controlled coordination layer
-inside the target repository.
 
 ## Safety
 
@@ -48,13 +39,11 @@ About: <one sentence describing the intended outcome>
 ```
 
 That's it. OpenMetaLoop creates the project's goals, plan, memory, and safety rules. It
-saves the starting point in Git and begins the first task.
+saves the starting point in a new or existing Git repository and begins the first task.
 
 When you come back later, open any coding agent in the same project folder and tell it
 to `continue`. The agent reads the saved project files instead of relying on the old
-chat. With permission, OpenMetaLoop can also create a private GitHub repository so the
-project can continue across devices and collaborators. GitHub is never required, and
-nothing is made public without explicit approval.
+chat.
 
 ## How It Works
 
@@ -68,7 +57,6 @@ Plan → Build → Check → Learn → Save
   └────── Continue Next Time ─────┘
 
 Git Saves the Project History
-GitHub Can Back It Up and Share It
 ```
 
 OpenMetaLoop writes the project's goals, plan, progress, decisions, and lessons into
@@ -91,13 +79,12 @@ The complete rules and generated file templates are in
 I've worked with deep learning systems for more than a decade, since the CNN and DQN era.
 When I began using coding agents intensively, I kept encountering the same limitation:
 an agent could make impressive progress inside one context window, but goals, decisions,
-operating lessons, and the exact continuation point were easily lost across sessions.
+operating lessons, and the exact continuation point were lost across sessions and collaborators.
 
-I wanted one portable file that could turn the repository itself into the durable
-coordination and memory layer. The agents could remain interchangeable and ephemeral
+I wanted one portable file that could make the repository itself agentic. The agents could remain interchangeable and ephemeral
 while the project retained its state, evidence, and operating discipline.
 
-— [Izhaar Tejani](https://izhaartejani.com/)
+— [Izhaar Tejani](https://www.izhaartejani.com/)
 
 ## License
 
