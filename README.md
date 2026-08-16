@@ -19,14 +19,13 @@ collaborators.
 
 OpenMetaLoop serves as a starter prompt to lay the foundation for your next coding agent project. Projects created with the bootloader are private and proprietary by default. OpenMetaLoop itself is not software and therefore does not execute code. However, because it drives autonomous LLM behavior, users must be aware of the following AI safety boundaries:
 
-
-* **Features**
+**Features**
 * **Local-First Isolation:** Because OpenMetaLoop relies on local file management and Git repositories, code execution and changes stay isolated to your local environment unless you explicitly push them to a remote repository.
 * **Version-Controlled Audit Trails:** Every decision, plan update, and progress milestone is recorded as a local Git commit history, ensuring every modification made by ephemeral coding sessions remains fully traceable, auditable, and reversible.
 * **Deterministic Verification Guardrails:** Agents are explicitly forbidden from self-certifying their own work. The loop requires agents to validate code against objective, mechanical evidence (such as test suites or schema checks) before committing a state checkpoint, mitigating the risk of hallucinated success.
 * **Private and Proprietary Defaults:** Projects initialized via the bootloader enforce private and proprietary boundary rules by default, preventing accidental exposure of sensitive business logic when cooperating with external agents.
 
-* **Risks**
+**Risks**
 * **Host Execution Constraints (Bring Your Own Sandbox):** OpenMetaLoop is a control protocol, not a security sandbox. It instructs your coding agent to run shell commands and modify files. You must ensure your coding agent is running in a secure, isolated environment (like a DevContainer or Docker) or configure it to require human approval before executing terminal commands.
 * **Secret Persistence Risk:** Because OpenMetaLoop persists project memory, decisions, and history in plain-text Markdown files, agents may accidentally write API keys or passwords into the repository history if exposed to them. Never paste raw secrets into the chat or allow the agent to read `.env` files. 
 * **Resource & Budget Bounding:** If an agent encounters persistent errors, the `Plan → Build → Check` loop can run continuously. Always set strict token limits or cost boundaries in your host coding agent to prevent budget exhaustion.
