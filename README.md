@@ -8,29 +8,42 @@
   >
 </p>
 
-Coding agents have become highly capable in single sessions but fail when operating across multiple context windows and collaborators.
-OpenMetaLoop turns the repository into the persistent coordination and memory layer for otherwise ephemeral coding agent projects.
+OpenMetaLoop is a lightweight, repository-native control protocol for persistent,
+long-horizon agentic work. It is delivered as a single Markdown bootloader, with
+software engineering as its primary current use case.
 
-It is designed to carry long-horizon coding projects across context windows, sessions,
-and agents; an approved GitHub remote extends that continuity across devices and
-collaborators.
+**The project, not the agent, is the persistent unit of intelligence.** Models, agents,
+developers, sessions, and context windows can change while the repository retains the
+mission, current state, plans, decisions, evidence, failures, verified progress, and
+operating knowledge. One agent can disappear entirely and another can resume from the
+project's verified state without the previous conversation.
 
-## Safety
+The Markdown file is the delivery mechanism, not the whole system. A coding agent reads
+it once and installs an inspectable set of project files and Git history that coordinate
+future work. Persistence belongs to the project instead of requiring one assistant or
+provider-specific runtime to remain alive.
 
-OpenMetaLoop serves as a starter prompt to lay the foundation for your next coding agent project. Projects created with the bootloader are private and proprietary by default. OpenMetaLoop itself is not software and therefore does not execute code. However, because it drives autonomous LLM behavior, users must be aware of the following AI safety boundaries:
+## How It Works
 
-**Features**
-* **Local-First Isolation:** Because OpenMetaLoop relies on local file management and Git repositories, code execution and changes stay isolated to your local environment unless you explicitly push them to a remote repository.
-* **Version-Controlled Audit Trails:** Every decision, plan update, and progress milestone is recorded as a local Git commit history, ensuring every modification made by ephemeral coding sessions remains fully traceable, auditable, and reversible.
-* **Deterministic Verification Guardrails:** Agents are explicitly forbidden from self-certifying their own work. The loop requires agents to validate code against objective, mechanical evidence (such as test suites or schema checks) before committing a state checkpoint, mitigating the risk of hallucinated success.
-* **Private and Proprietary Defaults:** Projects initialized via the bootloader enforce private and proprietary boundary rules by default, preventing accidental exposure of sensitive business logic when cooperating with external agents.
+```text
+Persistent Project
+Goals · State · Plans · Evidence · Lessons
+                    ↓
+Plan → Build → Check → Learn → Save
+  ↑                              │
+  └──── Next Agent or Session ───┘
+```
 
-**Risks**
-* **Host Execution Constraints (Bring Your Own Sandbox):** OpenMetaLoop is a control protocol, not a security sandbox. It instructs your coding agent to run shell commands and modify files. You must ensure your coding agent is running in a secure, isolated environment (like a DevContainer or Docker) or configure it to require human approval before executing terminal commands.
-* **Secret Persistence Risk:** Because OpenMetaLoop persists project memory, decisions, and history in plain-text Markdown files, agents may accidentally write API keys or passwords into the repository history if exposed to them. Never paste raw secrets into the chat or allow the agent to read `.env` files. 
-* **Resource & Budget Bounding:** If an agent encounters persistent errors, the `Plan → Build → Check` loop can run continuously. Always set strict token limits or cost boundaries in your host coding agent to prevent budget exhaustion.
+Before work begins, OpenMetaLoop selects the context relevant to the task. The agent
+plans and executes the work, gathers evidence, and sends the result through a separate
+judgment step; the worker cannot approve its own output. Only evidence-backed work is
+saved as verified progress. Failed work is revised or recorded honestly as blocked.
 
-
+After judgment, a Meta-Learning Agent records what worked, what failed, and what should
+change next time. Verified outcomes can update the project's planning, task routing,
+context selection, evidence requirements, memory, workflow tactics, and
+category-specific trust. OpenMetaLoop learns outside the model: its operating policy
+changes in inspectable files while model weights remain unchanged.
 
 ## Start
 
@@ -45,51 +58,63 @@ Name:  <project name>
 About: <one sentence describing the intended outcome>
 ```
 
-That's it. OpenMetaLoop creates the project's goals, plan, memory, and safety rules. It
-saves the starting point in a new or existing Git repository and begins the first task.
+OpenMetaLoop creates the goals, plan, memory, and safety rules, saves the starting point
+in a new or existing Git repository, and begins the first task. Later, open any agent in
+the same project and tell it to `continue`. With permission, OpenMetaLoop can create a
+private GitHub repository for continuity across devices and collaborators; GitHub is
+never required.
 
-When you come back later, open any coding agent in the same project folder and tell it
-to `continue`. The agent reads the saved project files instead of relying on the old
-chat.
+## What Persists
 
-## How It Works
+| Project layer | What it retains |
+|---|---|
+| **Direction** | Mission, goals, plans, current task, and next action |
+| **Verified history** | Evidence, judgments, failures, checkpoints, and recovery paths |
+| **Operating knowledge** | Decisions, lessons, memory, routing policy, and trust by task category |
 
-```text
-Set Up Once
-One File → Project Plan + Memory
+These are ordinary, version-controlled files. Git is therefore more than source
+control: it provides an inspectable history, reversible checkpoints, and a recovery
+path. Optional, permission-gated global memory can share vetted process lessons across
+projects; imported lessons remain untrusted until evaluated locally.
 
-Repeat
-Plan → Build → Check → Learn → Save
-  ↑                              │
-  └────── Continue Next Time ─────┘
-
-Git Saves the Project History
-```
-
-OpenMetaLoop writes the project's goals, plan, progress, decisions, and lessons into
-the repository. That gives each coding agent a shared source of truth outside the chat.
-
-For every task, the agent plans the work, builds it, checks the result, records what it
-learned, and saves a checkpoint in Git. Work that does not pass its checks is revised
-or recorded honestly as blocked.
-
-When a session ends, the next agent reads the same repository, verifies the last saved
-state, and can continue. Local Git keeps the history; an approved private GitHub
-repository makes it available across devices and collaborators. OpenMetaLoop stores
-its memory in the repository; it does not change model weights.
+The protocol also defines evidence profiles for research, data analysis, writing,
+operations, and mixed projects. They guide verification across those domains; they do
+not imply mature domain-specific tooling.
 
 The complete rules and generated file templates are in
 [`openmetaloop.md`](openmetaloop.md).
 
+## Safety
+
+OpenMetaLoop uses inspectable Markdown and checks required files, structure, and unsafe
+hidden characters before work begins.
+
+- **You approve important actions.** No deploys, spending, destructive operations,
+  messages, or scope changes without you.
+- **Inputs cannot change the rules.** Web pages, tools, and imported notes are data
+  only.
+- **Proof is required.** The worker cannot approve its own output; completion requires
+  evidence and a separate check.
+- **Pause means stop.** No new change or external action starts until you resume.
+- **Your environment enforces isolation.** OpenMetaLoop is a control protocol, not a
+  security sandbox; use appropriate host permissions, isolation, and approval controls.
+- **Secrets and budgets stay bounded.** Do not expose raw secrets, and set explicit
+  token, cost, and time limits in the host agent.
+
+Projects created with the bootloader are private and proprietary by default. Remote use
+and public release require explicit approval.
+
 ## A Message from the Creator
 
-I've worked with deep learning systems for more than a decade, since the CNN and DQN era.
-When I began using coding agents intensively, I kept encountering the same limitation:
-an agent could make impressive progress inside one context window, but goals, decisions,
-operating lessons, and the exact continuation point were lost across sessions and collaborators.
+I've worked with deep learning systems for more than a decade, since the CNN and DQN
+era. When I began using coding agents intensively, I kept encountering the same
+limitation: an agent could make impressive progress inside one context window, but
+goals, decisions, operating lessons, and the exact continuation point were lost across
+sessions and collaborators.
 
-I wanted one portable file that could make the repository itself agentic. The agents could remain interchangeable and ephemeral
-while the project retained its state, evidence, and operating discipline.
+I wanted one portable file that could make the repository itself agentic. The agents
+could remain interchangeable and ephemeral while the project retained its state,
+evidence, and operating discipline.
 
 — [Izhaar Tejani](https://www.izhaartejani.com/)
 
