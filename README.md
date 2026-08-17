@@ -25,7 +25,14 @@ provider-specific runtime to remain alive.
 
 ## How It Works
 
-<p align="center"><code>Persistent Project<br>Goals · State · Plans · Evidence · Lessons<br>↓<br>Plan → Build → Check → Learn → Save<br>↺ Next Agent or Session</code></p>
+```text
+Persistent Project
+Goals · State · Plans · Evidence · Lessons
+                    ↓
+Plan → Build → Check → Learn → Save
+  ↑                              │
+  └──── Next Agent or Session ───┘
+```
 
 OpenMetaLoop keeps the project's working state in the repository: why the project
 exists, what has been decided, what is being worked on, what evidence supports it, and
