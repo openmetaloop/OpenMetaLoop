@@ -34,34 +34,32 @@ Plan → Build → Check → Learn → Save
   └──── Next Agent or Session ───┘
 ```
 
-OpenMetaLoop keeps the project's working state in the repository: why the project
-exists, what has been decided, what is being worked on, what evidence supports it, and
-what has been learned. A new agent reads that state before it acts, so it can continue
-the project without the earlier chat.
+The repository is the project's record. It keeps the project's purpose, current work,
+decisions, evidence, and lessons so the next agent or session can pick up where the
+last one left off.
 
 ### What Persists
 
-| Project layer | What it retains |
+| What the repository keeps | Examples |
 |---|---|
-| **Direction** | Mission, goals, plans, current task, and next action |
-| **Verified history** | Evidence, judgments, failures, checkpoints, and recovery paths |
-| **Operating knowledge** | Decisions, lessons, memory, routing policy, and trust by task category |
+| **Direction** | Mission, goals, plan, current task, and next action |
+| **History** | Evidence, checks, failures, checkpoints, and recovery paths |
+| **Lessons** | Decisions, memory, and guidance for similar future tasks |
 
-These are ordinary, version-controlled files. Git is therefore more than source
-control: it provides an inspectable history, reversible checkpoints, and a recovery
-path. Optional, permission-gated global memory can share vetted process lessons across
-projects; imported lessons remain untrusted until evaluated locally.
+These are ordinary, version-controlled files. Git keeps a visible history and lets the
+project return to a recorded checkpoint when needed. Optional global memory can share
+vetted process lessons across projects, but each project evaluates imported lessons
+before relying on them.
 
-For each task, OpenMetaLoop selects relevant context, plans the work, builds it, and
-checks the result. The worker cannot declare success: a separate Judge checks the
-evidence. Passing work is saved in Git; failed work is revised or recorded honestly as
+For each task, the agent reads the relevant project record, plans the work, does it,
+and collects evidence. A separate Judge checks the result; the worker cannot approve
+its own work. Passing work is saved in Git. Failed work is revised or recorded as
 blocked.
 
-After judgment, a Meta-Learning Agent records what worked, what failed, and what should
-change next time. Verified outcomes can update the project's planning, task routing,
-context selection, evidence requirements, memory, workflow tactics, and
-category-specific trust. OpenMetaLoop learns outside the model: its operating policy
-changes in inspectable files while model weights remain unchanged.
+Afterward, a separate learning step records what worked, what failed, and what should
+change next time. It can improve the project's instructions, planning, evidence
+requirements, memory, and task guidance. It changes inspectable project files, not the
+model's weights.
 
 Software engineering is the primary use case. The protocol also defines evidence
 profiles for research, data analysis, writing, operations, and mixed projects; these
