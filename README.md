@@ -42,9 +42,9 @@ last one left off.
 
 | What the repository keeps | Examples |
 |---|---|
-| **Direction** | Mission, goals, plan, current task, and next action |
-| **History** | Evidence, checks, failures, checkpoints, and recovery paths |
-| **Lessons** | Decisions, memory, and guidance for similar future tasks |
+| Direction | Mission, goals, plan, current task, and next action |
+| History | Evidence, checks, failures, checkpoints, and recovery paths |
+| Lessons | Decisions, memory, and guidance for similar future tasks |
 
 These are ordinary, version-controlled files. Git keeps a visible history and lets the
 project return to a recorded checkpoint when needed. Optional global memory can share
