@@ -10,9 +10,9 @@
 
 OpenMetaLoop is a lightweight, repository-native control protocol for persistent,
 long-horizon agentic work. It is delivered as a single Markdown bootloader, with
-software engineering as its primary current use case.
+software engineering as its primary use case.
 
-**The project, not the agent, is the persistent unit of intelligence.** Models, agents,
+The project, not the agent, is the persistent unit of intelligence. Models, agents,
 developers, sessions, and context windows can change while the repository retains the
 mission, current state, plans, decisions, evidence, failures, verified progress, and
 operating knowledge. One agent can disappear entirely and another can resume from the
@@ -25,25 +25,43 @@ provider-specific runtime to remain alive.
 
 ## How It Works
 
-```text
-Persistent Project
-Goals · State · Plans · Evidence · Lessons
-                    ↓
-Plan → Build → Check → Learn → Save
-  ↑                              │
-  └──── Next Agent or Session ───┘
-```
+<p align="center"><code>Persistent Project<br>Goals · State · Plans · Evidence · Lessons<br>↓<br>Plan → Build → Check → Learn → Save<br>↺ Next Agent or Session</code></p>
 
-Before work begins, OpenMetaLoop selects the context relevant to the task. The agent
-plans and executes the work, gathers evidence, and sends the result through a separate
-judgment step; the worker cannot approve its own output. Only evidence-backed work is
-saved as verified progress. Failed work is revised or recorded honestly as blocked.
+OpenMetaLoop keeps the project's working state in the repository: why the project
+exists, what has been decided, what is being worked on, what evidence supports it, and
+what has been learned. A new agent reads that state before it acts, so it can continue
+the project without the earlier chat.
+
+### What Persists
+
+| Project layer | What it retains |
+|---|---|
+| **Direction** | Mission, goals, plans, current task, and next action |
+| **Verified history** | Evidence, judgments, failures, checkpoints, and recovery paths |
+| **Operating knowledge** | Decisions, lessons, memory, routing policy, and trust by task category |
+
+These are ordinary, version-controlled files. Git is therefore more than source
+control: it provides an inspectable history, reversible checkpoints, and a recovery
+path. Optional, permission-gated global memory can share vetted process lessons across
+projects; imported lessons remain untrusted until evaluated locally.
+
+For each task, OpenMetaLoop selects relevant context, plans the work, builds it, and
+checks the result. The worker cannot declare success: a separate Judge checks the
+evidence. Passing work is saved in Git; failed work is revised or recorded honestly as
+blocked.
 
 After judgment, a Meta-Learning Agent records what worked, what failed, and what should
 change next time. Verified outcomes can update the project's planning, task routing,
 context selection, evidence requirements, memory, workflow tactics, and
 category-specific trust. OpenMetaLoop learns outside the model: its operating policy
 changes in inspectable files while model weights remain unchanged.
+
+Software engineering is the primary use case. The protocol also defines evidence
+profiles for research, data analysis, writing, operations, and mixed projects; these
+guide verification rather than claim mature domain-specific tooling.
+
+The complete rules and generated file templates are in
+[`openmetaloop.md`](openmetaloop.md).
 
 ## Start
 
@@ -63,26 +81,6 @@ in a new or existing Git repository, and begins the first task. Later, open any 
 the same project and tell it to `continue`. With permission, OpenMetaLoop can create a
 private GitHub repository for continuity across devices and collaborators; GitHub is
 never required.
-
-## What Persists
-
-| Project layer | What it retains |
-|---|---|
-| **Direction** | Mission, goals, plans, current task, and next action |
-| **Verified history** | Evidence, judgments, failures, checkpoints, and recovery paths |
-| **Operating knowledge** | Decisions, lessons, memory, routing policy, and trust by task category |
-
-These are ordinary, version-controlled files. Git is therefore more than source
-control: it provides an inspectable history, reversible checkpoints, and a recovery
-path. Optional, permission-gated global memory can share vetted process lessons across
-projects; imported lessons remain untrusted until evaluated locally.
-
-The protocol also defines evidence profiles for research, data analysis, writing,
-operations, and mixed projects. They guide verification across those domains; they do
-not imply mature domain-specific tooling.
-
-The complete rules and generated file templates are in
-[`openmetaloop.md`](openmetaloop.md).
 
 ## Safety
 
