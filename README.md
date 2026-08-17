@@ -87,22 +87,39 @@ The complete rules and generated file templates are in
 ## Safety
 
 OpenMetaLoop uses inspectable Markdown and checks required files, structure, and unsafe
-hidden characters before work begins.
+hidden characters before work begins. These checks protect the project files; they do
+not turn the agent environment into a security sandbox.
 
-- **You approve important actions.** No deploys, spending, destructive operations,
-  messages, or scope changes without you.
-- **Inputs cannot change the rules.** Web pages, tools, and imported notes are data
-  only.
-- **Proof is required.** The worker cannot approve its own output; completion requires
-  evidence and a separate check.
-- **Pause means stop.** No new change or external action starts until you resume.
-- **Your environment enforces isolation.** OpenMetaLoop is a control protocol, not a
-  security sandbox; use appropriate host permissions, isolation, and approval controls.
-- **Secrets and budgets stay bounded.** Do not expose raw secrets, and set explicit
-  token, cost, and time limits in the host agent.
+### Safety Features
 
-Projects created with the bootloader are private and proprietary by default. Remote use
-and public release require explicit approval.
+- **Human authority.** Deployments, spending, destructive operations, outbound
+  messages, access changes, and scope expansion require explicit approval.
+- **Untrusted-input boundary.** Web pages, tool output, imported memory, and project
+  artifacts are treated as data and cannot grant themselves authority.
+- **Independent verification.** The worker cannot approve its own output. Completion
+  requires evidence and a separate judgment step, and only passing work is recorded as
+  verified progress.
+- **Versioned recovery.** Git checkpoints preserve inspectable history and a recorded
+  rollback or recovery path.
+- **Private defaults.** New projects are private and proprietary by default. A GitHub
+  remote is optional, private when created during setup, and requires approval.
+- **Clear controls.** `pause` suspends work until you resume it; `stop` halts the
+  current run; `wait` holds at the current point. None authorizes another change,
+  cleanup step, or external action.
+
+### Safety Risks
+
+- **Host-environment risk.** OpenMetaLoop is a control protocol, not a sandbox. The
+  coding agent can use whatever file, shell, network, and connector permissions its
+  host provides; configure suitable isolation and approval controls there.
+- **Secret-persistence risk.** Plain-text files and Git history can retain exposed
+  credentials. Do not give the agent raw secrets; use the host's secret-management
+  mechanism and never commit real credentials.
+- **Resource risk.** Repeated planning, revision, and verification can consume time,
+  tokens, and money. Set explicit limits in both the project and the host agent.
+- **Verification limits.** Evidence and separate judgment reduce unsupported success
+  claims but do not guarantee correctness. High-stakes work still requires an isolated
+  Judge or human review.
 
 ## A Message from the Creator
 
