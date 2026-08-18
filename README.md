@@ -8,20 +8,20 @@
   >
 </p>
 
-OpenMetaLoop is a lightweight, repository-native control protocol for persistent,
-long-horizon agentic work. It is delivered as a single Markdown bootloader, with
-software engineering as its primary use case.
+I've worked with deep learning systems for more than a decade (CNN + DQN era). When I
+started using coding agents, I noticed a fundamental limitation.
 
-The project, not the agent, is the persistent unit of intelligence. Models, agents,
-developers, sessions, and context windows can change while the repository retains the
-mission, current state, plans, decisions, evidence, failures, verified progress, and
-operating knowledge. One agent can disappear entirely and another can resume from the
-project's verified state without the previous conversation.
+Coding agents could make impressive progress inside one context window, but goals,
+decisions, operating lessons, and the exact continuation point were lost across
+sessions and collaborators.
 
-The Markdown file is the delivery mechanism, not the whole system. A coding agent reads
-it once and installs an inspectable set of project files and Git history that coordinate
-future work. Persistence belongs to the project instead of requiring one assistant or
-provider-specific runtime to remain alive.
+I wanted one portable bootloader file that could start a project and make the
+repository itself agentic and self-evolving. A system that keeps rewriting its own
+understanding and goals as it executes on the project roadmap. The coding agents remain
+interchangeable and ephemeral while the project retains its state, memory, goals, and
+meta-learnings.
+
+— [Izhaar Tejani](https://www.izhaartejani.com/)
 
 ## How It Works
 
@@ -123,23 +123,6 @@ not turn the agent environment into a security sandbox.
 - **Verification limits.** Evidence and separate judgment reduce unsupported success
   claims but do not guarantee correctness. High-stakes work still requires an isolated
   Judge or human review.
-
-## A Message from the Creator
-
-I've worked with deep learning systems for more than a decade (CNN + DQN era). When I
-started using coding agents, I noticed a fundamental limitation.
-
-Coding agents could make impressive progress inside one context window, but goals,
-decisions, operating lessons, and the exact continuation point were lost across
-sessions and collaborators.
-
-I wanted one portable bootloader file that could start a project and make the
-repository itself agentic and self-evolving. A system that keeps rewriting its own
-understanding and goals as it executes on the project roadmap. The coding agents remain
-interchangeable and ephemeral while the project retains its state, memory, goals, and
-meta-learnings.
-
-— [Izhaar Tejani](https://www.izhaartejani.com/)
 
 ## License
 
