@@ -126,15 +126,17 @@ not turn the agent environment into a security sandbox.
 
 ## A Message from the Creator
 
-I've worked with deep learning systems for more than a decade, since the CNN and DQN
-era. When I began using coding agents intensively, I kept encountering the same
-limitation: an agent could make impressive progress inside one context window, but
-goals, decisions, operating lessons, and the exact continuation point were lost across
+I've worked with deep learning systems for more than a decade (CNN + DQN era). When I
+started using coding agents, I noticed a fundamental limitation.
+
+Coding agents could make impressive progress inside one context window, but goals,
+decisions, operating lessons, and the exact continuation point were lost across
 sessions and collaborators.
 
-I wanted one portable file that could make the repository itself agentic. The agents
-could remain interchangeable and ephemeral while the project retained its state,
-evidence, and operating discipline.
+I wanted one portable bootloader file that could start a project and make the
+repository itself agentic and self-evolving, a small system that keeps rewriting its
+own understanding as it goes. The agents could remain interchangeable and ephemeral
+while the project retained its state, memory, and meta-learnings.
 
 — [Izhaar Tejani](https://www.izhaartejani.com/)
 
