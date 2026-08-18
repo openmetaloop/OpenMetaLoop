@@ -134,9 +134,10 @@ decisions, operating lessons, and the exact continuation point were lost across
 sessions and collaborators.
 
 I wanted one portable bootloader file that could start a project and make the
-repository itself agentic and self-evolving, a small system that keeps rewriting its
-own understanding as it goes. The agents could remain interchangeable and ephemeral
-while the project retained its state, memory, and meta-learnings.
+repository itself agentic and self-evolving. A system that keeps rewriting its own
+understanding and goals as it executes on the project roadmap. The coding agents remain
+interchangeable and ephemeral while the project retains its state, memory, goals, and
+meta-learnings.
 
 — [Izhaar Tejani](https://www.izhaartejani.com/)
 
