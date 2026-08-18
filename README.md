@@ -57,9 +57,9 @@ its own work. Passing work is saved in Git. Failed work is revised or recorded a
 blocked.
 
 Afterward, a separate learning step records what worked, what failed, and what should
-change next time. It can improve the project's instructions, planning, evidence
-requirements, memory, and task guidance. It changes inspectable project files, not the
-model's weights.
+change next time. It can improve the project's instructions, planning, routing,
+evidence requirements, memory, and category-specific trust for future tasks. It changes
+inspectable project files, not the model's weights.
 
 Software engineering is the primary use case. The protocol also defines evidence
 profiles for research, data analysis, writing, operations, and mixed projects; these
