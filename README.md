@@ -44,40 +44,6 @@ Plan → Build → Judge → Learn → Save → Ask [if stuck]
    GitHub — so any agent can resume exactly where this one left off.
 ```
 
-The repository is the project's record. It keeps the project's purpose, current work,
-decisions, evidence, and lessons so the next agent or session can pick up where the
-last one left off.
-
-### What Persists
-
-| What the repository keeps | Examples |
-|---|---|
-| Direction | Mission, goals, plan, current task, and next action |
-| History | Evidence, checks, failures, checkpoints, and recovery paths |
-| Lessons | Decisions, memory, and guidance for similar future tasks |
-
-These are ordinary, version-controlled files. Git keeps a visible history and lets the
-project return to a recorded checkpoint when needed. Optional global memory can share
-vetted process lessons across projects, but each project evaluates imported lessons
-before relying on them.
-
-For each task, the agent reads the relevant project record, plans the work, does it,
-and collects evidence. A separate Judge checks the result; the worker cannot approve
-its own work. Passing work is saved in Git. Failed work is revised or recorded as
-blocked.
-
-Afterward, a separate learning step records what worked, what failed, and what should
-change next time. It can improve the project's instructions, planning, routing,
-evidence requirements, memory, and category-specific trust for future tasks. It changes
-inspectable project files, not the model's weights.
-
-Software engineering is the primary use case. The protocol also defines evidence
-profiles for research, data analysis, writing, operations, and mixed projects; these
-guide verification rather than claim mature domain-specific tooling.
-
-The complete rules and generated file templates are in
-[`openmetaloop.md`](openmetaloop.md).
-
 ## Start
 
 Put [`openmetaloop.md`](openmetaloop.md) in your project folder and open any coding
