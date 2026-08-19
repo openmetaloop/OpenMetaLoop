@@ -38,6 +38,10 @@ Plan → Build → Judge → Learn → Save → Ask [if stuck]
 
 4. Concurrently, it is constantly updating its Goals, State, Plans, Evidence,
    Learnings, and To-Do List as it chips away at the project.
+5. When you end the session, your coding agent reconciles and updates every memory
+   module (state, roadmap, to-do, goals, learnings, trust), validates the project,
+   writes a handoff with the exact next action, then checkpoints and backs up to
+   GitHub — so any agent can resume exactly where this one left off.
 ```
 
 The repository is the project's record. It keeps the project's purpose, current work,
