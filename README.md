@@ -23,6 +23,25 @@ meta-learnings.
 
 — [Izhaar Tejani](https://www.izhaartejani.com/)
 
+## Start
+
+Put [`openmetaloop.md`](openmetaloop.md) in your project folder and open any coding
+agent in that folder. The agent must be able to read and write files and run commands.
+Git and Python 3 must be installed; GitHub is optional. Then enter:
+
+```text
+Read openmetaloop.md and use it to set up my new project.
+
+Name:  <project name>
+About: <one sentence describing the intended outcome>
+```
+
+OpenMetaLoop creates the goals, plan, memory, and safety rules, saves the starting point
+in a new or existing Git repository, and begins the first task. Later, open any agent in
+the same project and tell it to `continue`. With permission, OpenMetaLoop can create a
+private GitHub repository for continuity across devices and collaborators; GitHub is
+never required.
+
 ## How It Works
 
 ```text
@@ -43,25 +62,6 @@ Plan → Build → Judge → Learn → Save → Ask [if stuck]
    writes a handoff with the exact next action, then checkpoints and backs up to
    GitHub — so any agent can resume exactly where this one left off.
 ```
-
-## Start
-
-Put [`openmetaloop.md`](openmetaloop.md) in your project folder and open any coding
-agent in that folder. The agent must be able to read and write files and run commands.
-Git and Python 3 must be installed; GitHub is optional. Then enter:
-
-```text
-Read openmetaloop.md and use it to set up my new project.
-
-Name:  <project name>
-About: <one sentence describing the intended outcome>
-```
-
-OpenMetaLoop creates the goals, plan, memory, and safety rules, saves the starting point
-in a new or existing Git repository, and begins the first task. Later, open any agent in
-the same project and tell it to `continue`. With permission, OpenMetaLoop can create a
-private GitHub repository for continuity across devices and collaborators; GitHub is
-never required.
 
 ## Safety
 
