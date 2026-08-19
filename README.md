@@ -26,12 +26,18 @@ meta-learnings.
 ## How It Works
 
 ```text
-Persistent Project
-Goals · State · Plans · Evidence · Lessons
+1. Define the long-horizon project
+2. Your coding agent sets up a GitHub repo (asking once up front whether to use a
+   private remote or stay local-only)
+3. Your coding agent breaks down the vision into a project roadmap and starts
+   executing in a loop:
                     ↓
-Plan → Build → Check → Learn → Save
+Plan → Build → Judge → Learn → Save → Ask [if stuck]
   ↑                              │
   └──── Next Agent or Session ───┘
+
+4. Concurrently, it is constantly updating its Goals, State, Plans, Evidence,
+   Learnings, and To-Do List as it chips away at the project.
 ```
 
 The repository is the project's record. It keeps the project's purpose, current work,
